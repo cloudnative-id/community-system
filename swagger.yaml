@@ -1,0 +1,174 @@
+swagger: "2.0"
+
+info:
+  title: Community System
+  description: Community-system is an system to manage community.
+  version: 1.0.0
+  contact:
+    email: zufardhiyaulhaq@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+host: "0.0.0.0"
+basePath: "/api/v1"
+
+schemes:
+- "http"
+
+consumes:
+  - application/json
+
+paths:
+  /meetups:
+    get:
+      tags: [meetup]
+      operationId: getMeetups
+      summary: Returns a list of meetups.
+      description: A JSON array of meetups
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A JSON array of meetups
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Meetup'
+        default:
+          description: Unexpected error
+    put:
+      tags: [meetup]
+      operationId: putMeetup
+      summary: Put meetup data.
+      description: create meetup
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: meetup
+          description: The meetup to create.
+          schema:
+            $ref: '#/definitions/Meetup'
+      responses:
+        '200':
+          description: object uuid & status
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CreateObject'
+        default:
+          description: Unexpected error
+  /meetups/{id}:
+    get:
+      tags: [meetup]
+      operationId: getMeetup
+      summary: Returns a list of meetups.
+      description: A JSON array of meetups
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+          minimum: 1
+          description: The ID of the user to return.
+      responses:
+        '200':
+          description: A JSON array of meetups
+          schema:
+            $ref: '#/definitions/Meetup'
+        default:
+          description: Unexpected error
+
+definitions:
+  CreateObject:
+    type: object
+    properties:
+      uuid:
+        type: string
+      status:
+        type: string
+  Meetup:
+    type: object
+    properties:
+      uuid:
+        type: string
+      country:
+        type: string
+      city:
+        type: string
+      year:
+        type: integer
+        format: int64
+      month:
+        type: integer
+        format: int64
+      day:
+        type: integer
+        format: int64
+      time:
+        type: string
+        format: date-time
+      location:
+        type: string
+      image:
+        type: string
+      registrationUrl:
+        type: string
+      tags:
+        type: array
+        items:
+          type: string
+      sponsors:
+        type: array
+        items:
+          $ref: '#/definitions/Sponsor'
+      speaker:
+        type: array
+        items:
+          $ref: '#/definitions/Speaker'
+    required:  
+      - country
+      - city
+      - year
+      - month
+      - day
+      - time
+      - location
+      - image
+      - registrationUrl
+      - tags
+  Sponsor:
+    type: object
+    properties:
+      uuid:
+        type: string
+      name:
+        type: string
+      image:
+        type: string
+    required: 
+      - name
+      - image
+  Speaker:
+    properties:
+      uuid:
+        type: string
+      name:
+        type: string
+      position:
+        type: string
+      company:
+        type: string
+      title:
+        type: string
+      image:
+        type: string
+    required: 
+      - name
+      - position
+      - company
+      - title
+      - image
