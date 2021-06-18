@@ -7,7 +7,6 @@ package models
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -49,10 +48,10 @@ type Meetup struct {
 	RegistrationURL *string `json:"registrationUrl"`
 
 	// speaker
-	Speaker []*Speaker `json:"speaker"`
+	Speaker []string `json:"speaker"`
 
 	// sponsors
-	Sponsors []*Sponsor `json:"sponsors"`
+	Sponsors []string `json:"sponsors"`
 
 	// status
 	Status bool `json:"status,omitempty"`
@@ -103,14 +102,6 @@ func (m *Meetup) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRegistrationURL(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSpeaker(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSponsors(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -195,54 +186,6 @@ func (m *Meetup) validateRegistrationURL(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Meetup) validateSpeaker(formats strfmt.Registry) error {
-	if swag.IsZero(m.Speaker) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Speaker); i++ {
-		if swag.IsZero(m.Speaker[i]) { // not required
-			continue
-		}
-
-		if m.Speaker[i] != nil {
-			if err := m.Speaker[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("speaker" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *Meetup) validateSponsors(formats strfmt.Registry) error {
-	if swag.IsZero(m.Sponsors) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Sponsors); i++ {
-		if swag.IsZero(m.Sponsors[i]) { // not required
-			continue
-		}
-
-		if m.Sponsors[i] != nil {
-			if err := m.Sponsors[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("sponsors" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
 func (m *Meetup) validateTags(formats strfmt.Registry) error {
 
 	if err := validate.Required("tags", "body", m.Tags); err != nil {
@@ -274,57 +217,8 @@ func (m *Meetup) validateYear(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this meetup based on the context it is used
+// ContextValidate validates this meetup based on context it is used
 func (m *Meetup) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateSpeaker(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateSponsors(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *Meetup) contextValidateSpeaker(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.Speaker); i++ {
-
-		if m.Speaker[i] != nil {
-			if err := m.Speaker[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("speaker" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *Meetup) contextValidateSponsors(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.Sponsors); i++ {
-
-		if m.Sponsors[i] != nil {
-			if err := m.Sponsors[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("sponsors" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
 	return nil
 }
 

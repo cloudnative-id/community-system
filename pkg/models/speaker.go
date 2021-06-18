@@ -5,10 +5,11 @@ import (
 )
 
 type Speaker struct {
-	UUID     uuid.UUID `json:"uuid"`
-	Name     string    `json:"name"`
-	Position string    `json:"position"`
-	Company  string    `json:"company"`
-	Title    string    `json:"title"`
-	Image    string    `json:"image"`
+	Model
+	UUID     uuid.UUID `gorm:"primaryKey;type:uuid" json:"uuid"`
+	Name     string    `gorm:"type:varchar(255);not null" json:"name"`
+	Position string    `gorm:"type:varchar(255);not null" json:"position"`
+	Company  string    `gorm:"type:varchar(255);not null" json:"company"`
+	Title    string    `gorm:"type:varchar(255);not null" json:"title"`
+	Image    string    `gorm:"type:varchar(255);not null" json:"image"`
 }
