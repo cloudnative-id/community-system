@@ -129,6 +129,8 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Speaker'
+      status:
+        type: boolean
     required:  
       - country
       - city
