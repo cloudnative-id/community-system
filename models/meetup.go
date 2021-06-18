@@ -54,6 +54,9 @@ type Meetup struct {
 	// sponsors
 	Sponsors []*Sponsor `json:"sponsors"`
 
+	// status
+	Status bool `json:"status,omitempty"`
+
 	// tags
 	// Required: true
 	Tags []string `json:"tags"`

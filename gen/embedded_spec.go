@@ -199,6 +199,9 @@ func init() {
             "$ref": "#/definitions/Sponsor"
           }
         },
+        "status": {
+          "type": "boolean"
+        },
         "tags": {
           "type": "array",
           "items": {
@@ -448,6 +451,9 @@ func init() {
           "items": {
             "$ref": "#/definitions/Sponsor"
           }
+        },
+        "status": {
+          "type": "boolean"
         },
         "tags": {
           "type": "array",
