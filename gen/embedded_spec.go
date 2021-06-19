@@ -190,13 +190,13 @@ func init() {
         "speaker": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Speaker"
+            "type": "string"
           }
         },
         "sponsors": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Sponsor"
+            "type": "string"
           }
         },
         "status": {
@@ -443,13 +443,13 @@ func init() {
         "speaker": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Speaker"
+            "type": "string"
           }
         },
         "sponsors": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Sponsor"
+            "type": "string"
           }
         },
         "status": {

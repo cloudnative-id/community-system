@@ -124,11 +124,11 @@ definitions:
       sponsors:
         type: array
         items:
-          $ref: '#/definitions/Sponsor'
+          type: string
       speaker:
         type: array
         items:
-          $ref: '#/definitions/Speaker'
+          type: string
       status:
         type: boolean
     required:  

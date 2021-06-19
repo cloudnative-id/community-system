@@ -4,6 +4,7 @@ package gen
 
 import (
 	"crypto/tls"
+	"log"
 	"net/http"
 
 	"github.com/go-openapi/errors"
@@ -12,6 +13,8 @@ import (
 
 	"github.com/cloudnative-id/community-system/gen/operations"
 	"github.com/cloudnative-id/community-system/gen/operations/meetup"
+	"github.com/cloudnative-id/community-system/pkg/settings"
+	"github.com/cloudnative-id/community-system/pkg/storage/postgres"
 )
 
 //go:generate swagger generate server --target ../../community-system --name CommunitySystem --spec ../swagger.yaml --server-package gen --principal interface{}
@@ -21,22 +24,29 @@ func configureFlags(api *operations.CommunitySystemAPI) {
 }
 
 func configureAPI(api *operations.CommunitySystemAPI) http.Handler {
-	// configure the api here
 	api.ServeError = errors.ServeError
-
-	// Set your custom logger if needed. Default one is log.Printf
-	// Expected interface func(string, ...interface{})
-	//
-	// Example:
-	// api.Logger = log.Printf
-
 	api.UseSwaggerUI()
-	// To continue using redoc as your UI, uncomment the following line
-	// api.UseRedoc()
 
 	api.JSONConsumer = runtime.JSONConsumer()
-
 	api.JSONProducer = runtime.JSONProducer()
+
+	settings := settings.NewSettings()
+	store := postgres.NewPostgres(settings)
+
+	err := store.MigrateMeetup()
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	err = store.MigrateSpeaker()
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	err = store.MigrateSponsor()
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 	if api.MeetupGetMeetupHandler == nil {
 		api.MeetupGetMeetupHandler = meetup.GetMeetupHandlerFunc(func(params meetup.GetMeetupParams) middleware.Responder {
@@ -55,7 +65,6 @@ func configureAPI(api *operations.CommunitySystemAPI) http.Handler {
 	}
 
 	api.PreServerShutdown = func() {}
-
 	api.ServerShutdown = func() {}
 
 	return setupGlobalMiddleware(api.Serve(setupMiddlewares))
