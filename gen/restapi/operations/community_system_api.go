@@ -19,7 +19,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/cloudnative-id/community-system/gen/operations/meetup"
+	"github.com/cloudnative-id/community-system/gen/restapi/operations/meetup"
 )
 
 // NewCommunitySystemAPI creates a new CommunitySystem instance

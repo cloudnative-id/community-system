@@ -10,13 +10,13 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/cloudnative-id/community-system/models"
+	"github.com/cloudnative-id/community-system/gen/models"
 )
 
 // GetMeetupOKCode is the HTTP code returned for type GetMeetupOK
 const GetMeetupOKCode int = 200
 
-/*GetMeetupOK A JSON array of meetups
+/*GetMeetupOK Success
 
 swagger:response getMeetupOK
 */
@@ -55,6 +55,30 @@ func (o *GetMeetupOK) WriteResponse(rw http.ResponseWriter, producer runtime.Pro
 			panic(err) // let the recovery middleware deal with this
 		}
 	}
+}
+
+// GetMeetupNotFoundCode is the HTTP code returned for type GetMeetupNotFound
+const GetMeetupNotFoundCode int = 404
+
+/*GetMeetupNotFound Meetup not found
+
+swagger:response getMeetupNotFound
+*/
+type GetMeetupNotFound struct {
+}
+
+// NewGetMeetupNotFound creates GetMeetupNotFound with default headers values
+func NewGetMeetupNotFound() *GetMeetupNotFound {
+
+	return &GetMeetupNotFound{}
+}
+
+// WriteResponse to the client
+func (o *GetMeetupNotFound) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(404)
 }
 
 /*GetMeetupDefault Unexpected error

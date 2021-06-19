@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/cloudnative-id/community-system/models"
+	"github.com/cloudnative-id/community-system/gen/models"
 )
 
 // GetMeetupsOKCode is the HTTP code returned for type GetMeetupsOK

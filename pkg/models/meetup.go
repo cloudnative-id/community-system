@@ -60,3 +60,12 @@ func (u *UUIDs) Scan(value interface{}) error {
 func (u UUIDs) Value() (driver.Value, error) {
 	return json.Marshal(u)
 }
+
+func (u UUIDs) ArrayString() []string {
+	var output []string
+	for _, uuid := range u {
+		output = append(output, uuid.String())
+	}
+
+	return output
+}
