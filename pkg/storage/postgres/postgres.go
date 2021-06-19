@@ -7,8 +7,10 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 
+	"github.com/cloudnative-id/community-system/pkg/common"
 	"github.com/cloudnative-id/community-system/pkg/models"
 	"github.com/cloudnative-id/community-system/pkg/settings"
+	"github.com/cloudnative-id/community-system/pkg/storage"
 )
 
 type PostgresClientInterface interface {
@@ -16,12 +18,25 @@ type PostgresClientInterface interface {
 	Create(value interface{}) (tx *gorm.DB)
 	Where(query interface{}, args ...interface{}) (tx *gorm.DB)
 	First(dest interface{}, conds ...interface{}) (tx *gorm.DB)
+	Find(dest interface{}, conds ...interface{}) (tx *gorm.DB)
 	Save(value interface{}) (tx *gorm.DB)
 	AutoMigrate(dst ...interface{}) error
 }
 
 type PostgresClient struct {
 	Client PostgresClientInterface
+}
+
+func (p PostgresClient) MigrateMeetup() error {
+	return p.Client.AutoMigrate(&models.Meetup{})
+}
+
+func (p PostgresClient) MigrateSpeaker() error {
+	return p.Client.AutoMigrate(&models.Speaker{})
+}
+
+func (p PostgresClient) MigrateSponsor() error {
+	return p.Client.AutoMigrate(&models.Sponsor{})
 }
 
 func (p PostgresClient) WriteMeetup(meetup models.Meetup) error {
@@ -33,19 +48,41 @@ func (p PostgresClient) WriteMeetup(meetup models.Meetup) error {
 	return nil
 }
 
-func (p PostgresClient) GetMeetup() (models.Meetup, error) {
-	return models.Meetup{}, nil
+func (p PostgresClient) GetMeetup(uuid string) (models.Meetup, bool, error) {
+	var meetup models.Meetup
+	tx := p.Client.Where("uuid = ?", uuid).First(&meetup)
+
+	if tx.Error != nil {
+		if tx.Error == gorm.ErrRecordNotFound {
+			return models.Meetup{}, false, nil
+		}
+
+		return models.Meetup{}, false, tx.Error
+	}
+
+	return meetup, true, nil
 }
 
-func (p PostgresClient) GetMeetups() ([]models.Meetup, error) {
-	return []models.Meetup{}, nil
+func (p PostgresClient) GetMeetups() ([]models.Meetup, bool, error) {
+	var meetups []models.Meetup
+	tx := p.Client.Find(&meetups)
+
+	if tx.Error != nil {
+		if tx.Error == gorm.ErrRecordNotFound {
+			return []models.Meetup{}, false, nil
+		}
+
+		return []models.Meetup{}, false, tx.Error
+	}
+
+	return meetups, true, nil
 }
 
 func (p PostgresClient) DeleteMeetup(meetup models.Meetup) error {
-	return nil
+	return common.NotImplemented
 }
 
-func NewPostgres(settings settings.Settings) PostgresClient {
+func NewPostgres(settings settings.Settings) storage.Storage {
 	if settings.DatabasePort == "" {
 		settings.DatabasePort = "5432"
 	}

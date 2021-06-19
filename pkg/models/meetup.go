@@ -11,17 +11,17 @@ import (
 
 type Meetup struct {
 	Model
-	UUID            uuid.UUID       `gorm:"primaryKey;type:uuid" json:"uuid"`
+	UUID            uuid.UUID       `gorm:"primaryKey;type:uuid;not null" json:"uuid"`
 	Country         string          `gorm:"type:varchar(255);not null" json:"country"`
 	City            string          `gorm:"type:varchar(255);not null" json:"city"`
 	Location        string          `gorm:"type:varchar(255);not null" json:"location"`
-	Year            int64           `gorm:"type:varchar(255);not null" json:"year"`
-	Month           int64           `gorm:"type:varchar(255);not null" json:"month"`
-	Day             int64           `gorm:"type:varchar(255);not null" json:"day"`
+	Year            int64           `gorm:"not null" json:"year"`
+	Month           int64           `gorm:"not null" json:"month"`
+	Day             int64           `gorm:"not null" json:"day"`
+	Tags            Tags            `gorm:"type:jsonb;not null;" json:"tags"`
 	Time            strfmt.DateTime `gorm:"not null" json:"time"`
 	RegistrationURL string          `gorm:"type:varchar(255);" json:"registrationUrl"`
 	Image           string          `gorm:"type:varchar(255);" json:"image"`
-	Tags            Tags            `gorm:"type:jsonb;" json:"tags"`
 	Speaker         UUIDs           `gorm:"type:jsonb;" json:"speaker"`
 	Sponsors        UUIDs           `gorm:"type:jsonb;" json:"sponsors"`
 	Status          bool            `json:"status"`

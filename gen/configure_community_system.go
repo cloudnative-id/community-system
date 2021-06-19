@@ -13,7 +13,6 @@ import (
 
 	"github.com/cloudnative-id/community-system/gen/operations"
 	"github.com/cloudnative-id/community-system/gen/operations/meetup"
-	"github.com/cloudnative-id/community-system/pkg/models"
 	"github.com/cloudnative-id/community-system/pkg/settings"
 	"github.com/cloudnative-id/community-system/pkg/storage/postgres"
 )
@@ -34,17 +33,17 @@ func configureAPI(api *operations.CommunitySystemAPI) http.Handler {
 	settings := settings.NewSettings()
 	store := postgres.NewPostgres(settings)
 
-	err := store.Client.AutoMigrate(&models.Meetup{})
+	err := store.MigrateMeetup()
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	store.Client.AutoMigrate(&models.Speaker{})
+	err = store.MigrateSpeaker()
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	store.Client.AutoMigrate(&models.Sponsor{})
+	err = store.MigrateSponsor()
 	if err != nil {
 		log.Fatalln(err)
 	}
