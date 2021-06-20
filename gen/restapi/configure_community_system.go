@@ -1,6 +1,6 @@
 // This file is safe to edit. Once it exists it will not be overwritten
 
-package gen
+package restapi
 
 import (
 	"crypto/tls"
@@ -11,13 +11,14 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/cloudnative-id/community-system/gen/operations"
-	"github.com/cloudnative-id/community-system/gen/operations/meetup"
+	"github.com/cloudnative-id/community-system/gen/restapi/operations"
+	"github.com/cloudnative-id/community-system/gen/restapi/operations/meetup"
+	"github.com/cloudnative-id/community-system/handlers"
 	"github.com/cloudnative-id/community-system/pkg/settings"
 	"github.com/cloudnative-id/community-system/pkg/storage/postgres"
 )
 
-//go:generate swagger generate server --target ../../community-system --name CommunitySystem --spec ../swagger.yaml --server-package gen --principal interface{}
+//go:generate swagger generate server --target ../../gen --name CommunitySystem --spec ../../swagger.yaml --principal interface{}
 
 func configureFlags(api *operations.CommunitySystemAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
@@ -47,6 +48,8 @@ func configureAPI(api *operations.CommunitySystemAPI) http.Handler {
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	api.MeetupGetMeetupHandler = handlers.NewGetmeetupHandler(store)
 
 	if api.MeetupGetMeetupHandler == nil {
 		api.MeetupGetMeetupHandler = meetup.GetMeetupHandlerFunc(func(params meetup.GetMeetupParams) middleware.Responder {

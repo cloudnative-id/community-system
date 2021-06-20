@@ -76,9 +76,11 @@ paths:
           description: The ID of the user to return.
       responses:
         '200':
-          description: A JSON array of meetups
+          description: Success
           schema:
             $ref: '#/definitions/Meetup'
+        '404':
+          description: Meetup not found
         default:
           description: Unexpected error
 

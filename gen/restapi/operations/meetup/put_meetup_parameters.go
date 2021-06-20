@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/validate"
 
-	"github.com/cloudnative-id/community-system/models"
+	"github.com/cloudnative-id/community-system/gen/models"
 )
 
 // NewPutMeetupParams creates a new PutMeetupParams object
