@@ -25,7 +25,7 @@ type PutMeetupOK struct {
 	/*
 	  In: Body
 	*/
-	Payload []*models.CreateObject `json:"body,omitempty"`
+	Payload *models.CreateObject `json:"body,omitempty"`
 }
 
 // NewPutMeetupOK creates PutMeetupOK with default headers values
@@ -35,13 +35,13 @@ func NewPutMeetupOK() *PutMeetupOK {
 }
 
 // WithPayload adds the payload to the put meetup o k response
-func (o *PutMeetupOK) WithPayload(payload []*models.CreateObject) *PutMeetupOK {
+func (o *PutMeetupOK) WithPayload(payload *models.CreateObject) *PutMeetupOK {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the put meetup o k response
-func (o *PutMeetupOK) SetPayload(payload []*models.CreateObject) {
+func (o *PutMeetupOK) SetPayload(payload *models.CreateObject) {
 	o.Payload = payload
 }
 
@@ -49,14 +49,11 @@ func (o *PutMeetupOK) SetPayload(payload []*models.CreateObject) {
 func (o *PutMeetupOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
 	rw.WriteHeader(200)
-	payload := o.Payload
-	if payload == nil {
-		// return empty array
-		payload = make([]*models.CreateObject, 0, 50)
-	}
-
-	if err := producer.Produce(rw, payload); err != nil {
-		panic(err) // let the recovery middleware deal with this
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
 	}
 }
 

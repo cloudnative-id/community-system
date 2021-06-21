@@ -54,9 +54,7 @@ paths:
         '200':
           description: object uuid & status
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/CreateObject'
+            $ref: '#/definitions/CreateObject'
         default:
           description: Unexpected error
   /meetups/{id}:
@@ -101,18 +99,11 @@ definitions:
         type: string
       city:
         type: string
-      year:
-        type: integer
-        format: int64
-      month:
-        type: integer
-        format: int64
-      day:
-        type: integer
-        format: int64
       time:
         type: string
         format: date-time
+      duration:
+        type: integer
       location:
         type: string
       image:
@@ -136,13 +127,9 @@ definitions:
     required:  
       - country
       - city
-      - year
-      - month
-      - day
       - time
       - location
-      - image
-      - registrationUrl
+      - duration
       - tags
   Sponsor:
     type: object

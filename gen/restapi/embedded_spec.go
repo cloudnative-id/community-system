@@ -90,10 +90,7 @@ func init() {
           "200": {
             "description": "object uuid \u0026 status",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/CreateObject"
-              }
+              "$ref": "#/definitions/CreateObject"
             }
           },
           "default": {
@@ -157,13 +154,9 @@ func init() {
       "required": [
         "country",
         "city",
-        "year",
-        "month",
-        "day",
         "time",
         "location",
-        "image",
-        "registrationUrl",
+        "duration",
         "tags"
       ],
       "properties": {
@@ -173,19 +166,14 @@ func init() {
         "country": {
           "type": "string"
         },
-        "day": {
-          "type": "integer",
-          "format": "int64"
+        "duration": {
+          "type": "integer"
         },
         "image": {
           "type": "string"
         },
         "location": {
           "type": "string"
-        },
-        "month": {
-          "type": "integer",
-          "format": "int64"
         },
         "registrationUrl": {
           "type": "string"
@@ -217,10 +205,6 @@ func init() {
         },
         "uuid": {
           "type": "string"
-        },
-        "year": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -346,10 +330,7 @@ func init() {
           "200": {
             "description": "object uuid \u0026 status",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/CreateObject"
-              }
+              "$ref": "#/definitions/CreateObject"
             }
           },
           "default": {
@@ -413,13 +394,9 @@ func init() {
       "required": [
         "country",
         "city",
-        "year",
-        "month",
-        "day",
         "time",
         "location",
-        "image",
-        "registrationUrl",
+        "duration",
         "tags"
       ],
       "properties": {
@@ -429,19 +406,14 @@ func init() {
         "country": {
           "type": "string"
         },
-        "day": {
-          "type": "integer",
-          "format": "int64"
+        "duration": {
+          "type": "integer"
         },
         "image": {
           "type": "string"
         },
         "location": {
           "type": "string"
-        },
-        "month": {
-          "type": "integer",
-          "format": "int64"
         },
         "registrationUrl": {
           "type": "string"
@@ -473,10 +445,6 @@ func init() {
         },
         "uuid": {
           "type": "string"
-        },
-        "year": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },

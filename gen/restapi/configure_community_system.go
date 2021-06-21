@@ -50,6 +50,7 @@ func configureAPI(api *operations.CommunitySystemAPI) http.Handler {
 	}
 
 	api.MeetupGetMeetupHandler = handlers.NewGetmeetupHandler(store)
+	api.MeetupPutMeetupHandler = handlers.NewPutmeetupHandler(store)
 
 	if api.MeetupGetMeetupHandler == nil {
 		api.MeetupGetMeetupHandler = meetup.GetMeetupHandlerFunc(func(params meetup.GetMeetupParams) middleware.Responder {
