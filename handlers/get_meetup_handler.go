@@ -7,11 +7,11 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 )
 
-type GetmeetupHandler struct {
+type GetMeetupHandler struct {
 	storage storage.Storage
 }
 
-func (h *GetmeetupHandler) Handle(params api_meetup.GetMeetupParams) middleware.Responder {
+func (h *GetMeetupHandler) Handle(params api_meetup.GetMeetupParams) middleware.Responder {
 	meetup, exist, err := h.storage.GetMeetup(params.ID)
 
 	if !exist {
@@ -24,16 +24,14 @@ func (h *GetmeetupHandler) Handle(params api_meetup.GetMeetupParams) middleware.
 
 	return api_meetup.NewGetMeetupOK().WithPayload(&api_model.Meetup{
 		UUID:            meetup.UUID.String(),
-		Country:         &meetup.Country,
-		City:            &meetup.City,
-		Location:        &meetup.Location,
-		Year:            &meetup.Year,
-		Month:           &meetup.Month,
-		Day:             &meetup.Day,
+		Country:         meetup.Country,
+		City:            meetup.City,
+		Location:        meetup.Location,
 		Tags:            meetup.Tags,
-		Time:            &meetup.Time,
-		RegistrationURL: &meetup.RegistrationURL,
-		Image:           &meetup.Image,
+		Time:            meetup.Time,
+		Duration:        meetup.Duration,
+		RegistrationURL: meetup.RegistrationURL,
+		Image:           meetup.Image,
 		Speaker:         meetup.Speaker.ArrayString(),
 		Sponsors:        meetup.Sponsors.ArrayString(),
 		Status:          meetup.Status,
@@ -41,7 +39,7 @@ func (h *GetmeetupHandler) Handle(params api_meetup.GetMeetupParams) middleware.
 }
 
 func NewGetmeetupHandler(storage storage.Storage) api_meetup.GetMeetupHandler {
-	return &GetmeetupHandler{
+	return &GetMeetupHandler{
 		storage: storage,
 	}
 }

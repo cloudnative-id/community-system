@@ -27,25 +27,19 @@ type Meetup struct {
 	// Required: true
 	Country *string `json:"country"`
 
-	// day
+	// duration
 	// Required: true
-	Day *int64 `json:"day"`
+	Duration *int64 `json:"duration"`
 
 	// image
-	// Required: true
-	Image *string `json:"image"`
+	Image string `json:"image,omitempty"`
 
 	// location
 	// Required: true
 	Location *string `json:"location"`
 
-	// month
-	// Required: true
-	Month *int64 `json:"month"`
-
 	// registration Url
-	// Required: true
-	RegistrationURL *string `json:"registrationUrl"`
+	RegistrationURL string `json:"registrationUrl,omitempty"`
 
 	// speaker
 	Speaker []string `json:"speaker"`
@@ -67,10 +61,6 @@ type Meetup struct {
 
 	// uuid
 	UUID string `json:"uuid,omitempty"`
-
-	// year
-	// Required: true
-	Year *int64 `json:"year"`
 }
 
 // Validate validates this meetup
@@ -85,23 +75,11 @@ func (m *Meetup) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateDay(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateImage(formats); err != nil {
+	if err := m.validateDuration(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateLocation(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateMonth(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRegistrationURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -110,10 +88,6 @@ func (m *Meetup) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTime(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateYear(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -141,18 +115,9 @@ func (m *Meetup) validateCountry(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Meetup) validateDay(formats strfmt.Registry) error {
+func (m *Meetup) validateDuration(formats strfmt.Registry) error {
 
-	if err := validate.Required("day", "body", m.Day); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Meetup) validateImage(formats strfmt.Registry) error {
-
-	if err := validate.Required("image", "body", m.Image); err != nil {
+	if err := validate.Required("duration", "body", m.Duration); err != nil {
 		return err
 	}
 
@@ -162,24 +127,6 @@ func (m *Meetup) validateImage(formats strfmt.Registry) error {
 func (m *Meetup) validateLocation(formats strfmt.Registry) error {
 
 	if err := validate.Required("location", "body", m.Location); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Meetup) validateMonth(formats strfmt.Registry) error {
-
-	if err := validate.Required("month", "body", m.Month); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Meetup) validateRegistrationURL(formats strfmt.Registry) error {
-
-	if err := validate.Required("registrationUrl", "body", m.RegistrationURL); err != nil {
 		return err
 	}
 
@@ -202,15 +149,6 @@ func (m *Meetup) validateTime(formats strfmt.Registry) error {
 	}
 
 	if err := validate.FormatOf("time", "body", "date-time", m.Time.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Meetup) validateYear(formats strfmt.Registry) error {
-
-	if err := validate.Required("year", "body", m.Year); err != nil {
 		return err
 	}
 
