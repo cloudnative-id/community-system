@@ -60,6 +60,30 @@ func (o *GetMeetupsOK) WriteResponse(rw http.ResponseWriter, producer runtime.Pr
 	}
 }
 
+// GetMeetupsNotFoundCode is the HTTP code returned for type GetMeetupsNotFound
+const GetMeetupsNotFoundCode int = 404
+
+/*GetMeetupsNotFound Meetups not found
+
+swagger:response getMeetupsNotFound
+*/
+type GetMeetupsNotFound struct {
+}
+
+// NewGetMeetupsNotFound creates GetMeetupsNotFound with default headers values
+func NewGetMeetupsNotFound() *GetMeetupsNotFound {
+
+	return &GetMeetupsNotFound{}
+}
+
+// WriteResponse to the client
+func (o *GetMeetupsNotFound) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(404)
+}
+
 /*GetMeetupsDefault Unexpected error
 
 swagger:response getMeetupsDefault
