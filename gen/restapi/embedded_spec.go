@@ -61,6 +61,9 @@ func init() {
               }
             }
           },
+          "404": {
+            "description": "Meetups not found"
+          },
           "default": {
             "description": "Unexpected error"
           }
@@ -300,6 +303,9 @@ func init() {
                 "$ref": "#/definitions/Meetup"
               }
             }
+          },
+          "404": {
+            "description": "Meetups not found"
           },
           "default": {
             "description": "Unexpected error"

@@ -35,6 +35,8 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Meetup'
+        '404':
+          description: Meetups not found
         default:
           description: Unexpected error
     put:

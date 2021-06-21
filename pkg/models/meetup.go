@@ -8,6 +8,8 @@ import (
 
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
+
+	api_model "github.com/cloudnative-id/community-system/gen/models"
 )
 
 type Meetup struct {
@@ -60,6 +62,23 @@ func (m Meetup) sanitize() error {
 	}
 
 	return nil
+}
+
+func (m Meetup) ToAPIMeetup() *api_model.Meetup {
+	return &api_model.Meetup{
+		UUID:            m.UUID.String(),
+		Country:         m.Country,
+		City:            m.City,
+		Location:        m.Location,
+		Duration:        m.Duration,
+		Time:            m.Time,
+		Tags:            m.Tags,
+		RegistrationURL: m.RegistrationURL,
+		Image:           m.Image,
+		Speaker:         m.Speaker.ArrayString(),
+		Sponsors:        m.Sponsors.ArrayString(),
+		Status:          m.Status,
+	}
 }
 
 type Tags []string

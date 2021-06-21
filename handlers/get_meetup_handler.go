@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	api_model "github.com/cloudnative-id/community-system/gen/models"
-	api_meetup "github.com/cloudnative-id/community-system/gen/restapi/operations/meetup"
 	"github.com/cloudnative-id/community-system/pkg/storage"
 	"github.com/go-openapi/runtime/middleware"
+
+	api_model "github.com/cloudnative-id/community-system/gen/models"
+	api_meetup "github.com/cloudnative-id/community-system/gen/restapi/operations/meetup"
 )
 
 type GetMeetupHandler struct {
