@@ -10,4 +10,10 @@ type Storage interface {
 	GetMeetup(uuid string) (models.Meetup, bool, error)
 	GetMeetups() ([]models.Meetup, bool, error)
 	DeleteMeetup(meetup models.Meetup) error
+	WriteSpeaker(speaker models.Speaker) error
+	GetSpeakers(meetupUUID string) ([]models.Speaker, bool, error)
+	DeleteSpeaker(speaker models.Speaker) error
+	WriteSponsor(sponsor models.Sponsor) error
+	GetSponsors() ([]models.Sponsor, bool, error)
+	DeleteSponsor(sponsor models.Sponsor) error
 }

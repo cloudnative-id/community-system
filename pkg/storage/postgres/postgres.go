@@ -82,6 +82,62 @@ func (p PostgresClient) DeleteMeetup(meetup models.Meetup) error {
 	return common.NotImplemented
 }
 
+func (p PostgresClient) WriteSpeaker(speaker models.Speaker) error {
+	tx := p.Client.Clauses(clause.OnConflict{UpdateAll: true}).Create(&speaker)
+	if tx.Error != nil {
+		return tx.Error
+	}
+
+	return nil
+}
+
+func (p PostgresClient) GetSpeakers(meetupUUID string) ([]models.Speaker, bool, error) {
+	var speakers []models.Speaker
+	tx := p.Client.Where("speakers.meetup_uuid = ?", meetupUUID).Find(&speakers)
+
+	if tx.Error != nil {
+		if tx.Error == gorm.ErrRecordNotFound {
+			return []models.Speaker{}, false, nil
+		}
+
+		return []models.Speaker{}, false, tx.Error
+	}
+
+	return speakers, true, nil
+}
+
+func (p PostgresClient) DeleteSpeaker(speaker models.Speaker) error {
+	return common.NotImplemented
+}
+
+func (p PostgresClient) WriteSponsor(sponsor models.Sponsor) error {
+	tx := p.Client.Clauses(clause.OnConflict{UpdateAll: true}).Create(&sponsor)
+	if tx.Error != nil {
+		return tx.Error
+	}
+
+	return nil
+}
+
+func (p PostgresClient) GetSponsors() ([]models.Sponsor, bool, error) {
+	var sponsors []models.Sponsor
+	tx := p.Client.Find(&sponsors)
+
+	if tx.Error != nil {
+		if tx.Error == gorm.ErrRecordNotFound {
+			return []models.Sponsor{}, false, nil
+		}
+
+		return []models.Sponsor{}, false, tx.Error
+	}
+
+	return sponsors, true, nil
+}
+
+func (p PostgresClient) DeleteSponsor(sponsor models.Sponsor) error {
+	return common.NotImplemented
+}
+
 func NewPostgres(settings settings.Settings) storage.Storage {
 	if settings.DatabasePort == "" {
 		settings.DatabasePort = "5432"

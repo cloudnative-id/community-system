@@ -73,7 +73,7 @@ paths:
           required: true
           type: string
           minimum: 1
-          description: The ID of the user to return.
+          description: The ID of the meetup to return.
       responses:
         '200':
           description: Success
@@ -81,6 +81,91 @@ paths:
             $ref: '#/definitions/Meetup'
         '404':
           description: Meetup not found
+        default:
+          description: Unexpected error
+  /meetups/{id}/speaker:
+    get:
+      tags: [speaker]
+      operationId: getSpeaker
+      summary: Returns a list of speakers in meetup.
+      description: A JSON array of speakers
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+          minimum: 1
+          description: The ID of the meetup to return.
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Speaker'
+        '404':
+          description: Speaker not found
+        default:
+          description: Unexpected error
+    put:
+      tags: [speaker]
+      operationId: putSpeaker
+      summary: Put speaker data.
+      description: create speaker
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: speaker
+          description: The speaker to create.
+          schema:
+            $ref: '#/definitions/Speaker'
+      responses:
+        '200':
+          description: object uuid & status
+          schema:
+            $ref: '#/definitions/CreateObject'
+        default:
+          description: Unexpected error
+  /meetups/sponsor:
+    get:
+      tags: [sponsor]
+      operationId: getSponsor
+      summary: Returns a list of sponsors.
+      description: A JSON array of sponsors
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Sponsor'
+        '404':
+          description: Speaker not found
+        default:
+          description: Unexpected error
+    put:
+      tags: [sponsor]
+      operationId: putSponsor
+      summary: Put sponsor data.
+      description: create sponsor
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: sponsor
+          description: The sponsor to create.
+          schema:
+            $ref: '#/definitions/Sponsor'
+      responses:
+        '200':
+          description: object uuid & status
+          schema:
+            $ref: '#/definitions/CreateObject'
         default:
           description: Unexpected error
 
