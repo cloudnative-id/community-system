@@ -39,7 +39,7 @@ func (h *GetMeetupHandler) Handle(params api_meetup.GetMeetupParams) middleware.
 	})
 }
 
-func NewGetmeetupHandler(storage storage.Storage) api_meetup.GetMeetupHandler {
+func NewGetMeetupHandler(storage storage.Storage) api_meetup.GetMeetupHandler {
 	return &GetMeetupHandler{
 		storage: storage,
 	}

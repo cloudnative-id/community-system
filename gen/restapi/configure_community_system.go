@@ -49,9 +49,12 @@ func configureAPI(api *operations.CommunitySystemAPI) http.Handler {
 		log.Fatalln(err)
 	}
 
-	api.MeetupGetMeetupHandler = handlers.NewGetmeetupHandler(store)
-	api.MeetupPutMeetupHandler = handlers.NewPutmeetupHandler(store)
-	api.MeetupGetMeetupsHandler = handlers.NewGetmeetupsHandler(store)
+	api.MeetupGetMeetupHandler = handlers.NewGetMeetupHandler(store)
+	api.MeetupPutMeetupHandler = handlers.NewPutMeetupHandler(store)
+	api.MeetupGetMeetupsHandler = handlers.NewGetMeetupsHandler(store)
+
+	api.SponsorPutSponsorHandler = handlers.NewPutSponsorHandler(store)
+	api.SponsorGetSponsorsHandler = handlers.NewGetSponsorsHandler(store)
 
 	if api.MeetupGetMeetupHandler == nil {
 		api.MeetupGetMeetupHandler = meetup.GetMeetupHandlerFunc(func(params meetup.GetMeetupParams) middleware.Responder {

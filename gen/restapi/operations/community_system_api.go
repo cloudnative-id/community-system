@@ -20,6 +20,8 @@ import (
 	"github.com/go-openapi/swag"
 
 	"github.com/cloudnative-id/community-system/gen/restapi/operations/meetup"
+	"github.com/cloudnative-id/community-system/gen/restapi/operations/speaker"
+	"github.com/cloudnative-id/community-system/gen/restapi/operations/sponsor"
 )
 
 // NewCommunitySystemAPI creates a new CommunitySystem instance
@@ -50,8 +52,20 @@ func NewCommunitySystemAPI(spec *loads.Document) *CommunitySystemAPI {
 		MeetupGetMeetupsHandler: meetup.GetMeetupsHandlerFunc(func(params meetup.GetMeetupsParams) middleware.Responder {
 			return middleware.NotImplemented("operation meetup.GetMeetups has not yet been implemented")
 		}),
+		SpeakerGetSpeakerHandler: speaker.GetSpeakerHandlerFunc(func(params speaker.GetSpeakerParams) middleware.Responder {
+			return middleware.NotImplemented("operation speaker.GetSpeaker has not yet been implemented")
+		}),
+		SponsorGetSponsorsHandler: sponsor.GetSponsorsHandlerFunc(func(params sponsor.GetSponsorsParams) middleware.Responder {
+			return middleware.NotImplemented("operation sponsor.GetSponsors has not yet been implemented")
+		}),
 		MeetupPutMeetupHandler: meetup.PutMeetupHandlerFunc(func(params meetup.PutMeetupParams) middleware.Responder {
 			return middleware.NotImplemented("operation meetup.PutMeetup has not yet been implemented")
+		}),
+		SpeakerPutSpeakerHandler: speaker.PutSpeakerHandlerFunc(func(params speaker.PutSpeakerParams) middleware.Responder {
+			return middleware.NotImplemented("operation speaker.PutSpeaker has not yet been implemented")
+		}),
+		SponsorPutSponsorHandler: sponsor.PutSponsorHandlerFunc(func(params sponsor.PutSponsorParams) middleware.Responder {
+			return middleware.NotImplemented("operation sponsor.PutSponsor has not yet been implemented")
 		}),
 	}
 }
@@ -93,8 +107,16 @@ type CommunitySystemAPI struct {
 	MeetupGetMeetupHandler meetup.GetMeetupHandler
 	// MeetupGetMeetupsHandler sets the operation handler for the get meetups operation
 	MeetupGetMeetupsHandler meetup.GetMeetupsHandler
+	// SpeakerGetSpeakerHandler sets the operation handler for the get speaker operation
+	SpeakerGetSpeakerHandler speaker.GetSpeakerHandler
+	// SponsorGetSponsorsHandler sets the operation handler for the get sponsors operation
+	SponsorGetSponsorsHandler sponsor.GetSponsorsHandler
 	// MeetupPutMeetupHandler sets the operation handler for the put meetup operation
 	MeetupPutMeetupHandler meetup.PutMeetupHandler
+	// SpeakerPutSpeakerHandler sets the operation handler for the put speaker operation
+	SpeakerPutSpeakerHandler speaker.PutSpeakerHandler
+	// SponsorPutSponsorHandler sets the operation handler for the put sponsor operation
+	SponsorPutSponsorHandler sponsor.PutSponsorHandler
 
 	// ServeError is called when an error is received, there is a default handler
 	// but you can set your own with this
@@ -178,8 +200,20 @@ func (o *CommunitySystemAPI) Validate() error {
 	if o.MeetupGetMeetupsHandler == nil {
 		unregistered = append(unregistered, "meetup.GetMeetupsHandler")
 	}
+	if o.SpeakerGetSpeakerHandler == nil {
+		unregistered = append(unregistered, "speaker.GetSpeakerHandler")
+	}
+	if o.SponsorGetSponsorsHandler == nil {
+		unregistered = append(unregistered, "sponsor.GetSponsorsHandler")
+	}
 	if o.MeetupPutMeetupHandler == nil {
 		unregistered = append(unregistered, "meetup.PutMeetupHandler")
+	}
+	if o.SpeakerPutSpeakerHandler == nil {
+		unregistered = append(unregistered, "speaker.PutSpeakerHandler")
+	}
+	if o.SponsorPutSponsorHandler == nil {
+		unregistered = append(unregistered, "sponsor.PutSponsorHandler")
 	}
 
 	if len(unregistered) > 0 {
@@ -277,10 +311,26 @@ func (o *CommunitySystemAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/meetups"] = meetup.NewGetMeetups(o.context, o.MeetupGetMeetupsHandler)
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/meetups/{id}/speaker"] = speaker.NewGetSpeaker(o.context, o.SpeakerGetSpeakerHandler)
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/meetups/sponsors"] = sponsor.NewGetSponsors(o.context, o.SponsorGetSponsorsHandler)
 	if o.handlers["PUT"] == nil {
 		o.handlers["PUT"] = make(map[string]http.Handler)
 	}
 	o.handlers["PUT"]["/meetups"] = meetup.NewPutMeetup(o.context, o.MeetupPutMeetupHandler)
+	if o.handlers["PUT"] == nil {
+		o.handlers["PUT"] = make(map[string]http.Handler)
+	}
+	o.handlers["PUT"]["/meetups/{id}/speaker"] = speaker.NewPutSpeaker(o.context, o.SpeakerPutSpeakerHandler)
+	if o.handlers["PUT"] == nil {
+		o.handlers["PUT"] = make(map[string]http.Handler)
+	}
+	o.handlers["PUT"]["/meetups/sponsors"] = sponsor.NewPutSponsor(o.context, o.SponsorPutSponsorHandler)
 }
 
 // Serve creates a http handler to serve the API over HTTP

@@ -31,7 +31,7 @@ func (h *GetMeetupsHandler) Handle(params api_meetup.GetMeetupsParams) middlewar
 	return api_meetup.NewGetMeetupsOK().WithPayload(meetupsResponse)
 }
 
-func NewGetmeetupsHandler(storage storage.Storage) api_meetup.GetMeetupsHandler {
+func NewGetMeetupsHandler(storage storage.Storage) api_meetup.GetMeetupsHandler {
 	return &GetMeetupsHandler{
 		storage: storage,
 	}

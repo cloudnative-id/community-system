@@ -102,6 +102,68 @@ func init() {
         }
       }
     },
+    "/meetups/sponsors": {
+      "get": {
+        "description": "A JSON array of sponsors",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "sponsor"
+        ],
+        "summary": "Returns a list of sponsors.",
+        "operationId": "getSponsors",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sponsor"
+              }
+            }
+          },
+          "404": {
+            "description": "Speaker not found"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "put": {
+        "description": "create sponsor",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "sponsor"
+        ],
+        "summary": "Put sponsor data.",
+        "operationId": "putSponsor",
+        "parameters": [
+          {
+            "description": "The sponsor to create.",
+            "name": "sponsor",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Sponsor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "object uuid \u0026 status",
+            "schema": {
+              "$ref": "#/definitions/CreateObject"
+            }
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
     "/meetups/{id}": {
       "get": {
         "description": "A JSON array of meetups",
@@ -117,7 +179,7 @@ func init() {
           {
             "minimum": 1,
             "type": "string",
-            "description": "The ID of the user to return.",
+            "description": "The ID of the meetup to return.",
             "name": "id",
             "in": "path",
             "required": true
@@ -132,6 +194,86 @@ func init() {
           },
           "404": {
             "description": "Meetup not found"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/meetups/{id}/speaker": {
+      "get": {
+        "description": "A JSON array of speakers",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "speaker"
+        ],
+        "summary": "Returns a list of speakers in meetup.",
+        "operationId": "getSpeaker",
+        "parameters": [
+          {
+            "minimum": 1,
+            "type": "string",
+            "description": "The ID of the meetup to return.",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Speaker"
+              }
+            }
+          },
+          "404": {
+            "description": "Speaker not found"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "put": {
+        "description": "create speaker",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "speaker"
+        ],
+        "summary": "Put speaker data.",
+        "operationId": "putSpeaker",
+        "parameters": [
+          {
+            "minimum": 1,
+            "type": "string",
+            "description": "The ID of the meetup.",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "The speaker to create.",
+            "name": "speaker",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Speaker"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "object uuid \u0026 status",
+            "schema": {
+              "$ref": "#/definitions/CreateObject"
+            }
           },
           "default": {
             "description": "Unexpected error"
@@ -345,6 +487,68 @@ func init() {
         }
       }
     },
+    "/meetups/sponsors": {
+      "get": {
+        "description": "A JSON array of sponsors",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "sponsor"
+        ],
+        "summary": "Returns a list of sponsors.",
+        "operationId": "getSponsors",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sponsor"
+              }
+            }
+          },
+          "404": {
+            "description": "Speaker not found"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "put": {
+        "description": "create sponsor",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "sponsor"
+        ],
+        "summary": "Put sponsor data.",
+        "operationId": "putSponsor",
+        "parameters": [
+          {
+            "description": "The sponsor to create.",
+            "name": "sponsor",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Sponsor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "object uuid \u0026 status",
+            "schema": {
+              "$ref": "#/definitions/CreateObject"
+            }
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
     "/meetups/{id}": {
       "get": {
         "description": "A JSON array of meetups",
@@ -360,7 +564,7 @@ func init() {
           {
             "minimum": 1,
             "type": "string",
-            "description": "The ID of the user to return.",
+            "description": "The ID of the meetup to return.",
             "name": "id",
             "in": "path",
             "required": true
@@ -375,6 +579,86 @@ func init() {
           },
           "404": {
             "description": "Meetup not found"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/meetups/{id}/speaker": {
+      "get": {
+        "description": "A JSON array of speakers",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "speaker"
+        ],
+        "summary": "Returns a list of speakers in meetup.",
+        "operationId": "getSpeaker",
+        "parameters": [
+          {
+            "minimum": 1,
+            "type": "string",
+            "description": "The ID of the meetup to return.",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Speaker"
+              }
+            }
+          },
+          "404": {
+            "description": "Speaker not found"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "put": {
+        "description": "create speaker",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "speaker"
+        ],
+        "summary": "Put speaker data.",
+        "operationId": "putSpeaker",
+        "parameters": [
+          {
+            "minimum": 1,
+            "type": "string",
+            "description": "The ID of the meetup.",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "The speaker to create.",
+            "name": "speaker",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Speaker"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "object uuid \u0026 status",
+            "schema": {
+              "$ref": "#/definitions/CreateObject"
+            }
           },
           "default": {
             "description": "Unexpected error"
