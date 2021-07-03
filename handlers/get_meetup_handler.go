@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	log "github.com/sirupsen/logrus"
+
 	"github.com/cloudnative-id/community-system/pkg/storage"
 	"github.com/go-openapi/runtime/middleware"
 
@@ -13,13 +15,18 @@ type GetMeetupHandler struct {
 }
 
 func (h *GetMeetupHandler) Handle(params api_meetup.GetMeetupParams) middleware.Responder {
-	meetup, exist, err := h.storage.GetMeetup(params.ID)
+	contextLogger := log.WithFields(log.Fields{
+		"handler": "GetMeetupHandler",
+	})
 
+	meetup, exist, err := h.storage.GetMeetup(params.ID)
 	if !exist {
+		contextLogger.Errorf("meetup is not exist")
 		return api_meetup.NewGetMeetupNotFound()
 	}
 
 	if err != nil {
+		contextLogger.Errorf("getting meetup: %s", err)
 		return api_meetup.NewGetMeetupDefault(500)
 	}
 

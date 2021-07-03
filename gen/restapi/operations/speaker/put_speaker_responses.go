@@ -57,6 +57,30 @@ func (o *PutSpeakerOK) WriteResponse(rw http.ResponseWriter, producer runtime.Pr
 	}
 }
 
+// PutSpeakerNotFoundCode is the HTTP code returned for type PutSpeakerNotFound
+const PutSpeakerNotFoundCode int = 404
+
+/*PutSpeakerNotFound Meetup not found
+
+swagger:response putSpeakerNotFound
+*/
+type PutSpeakerNotFound struct {
+}
+
+// NewPutSpeakerNotFound creates PutSpeakerNotFound with default headers values
+func NewPutSpeakerNotFound() *PutSpeakerNotFound {
+
+	return &PutSpeakerNotFound{}
+}
+
+// WriteResponse to the client
+func (o *PutSpeakerNotFound) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(404)
+}
+
 /*PutSpeakerDefault Unexpected error
 
 swagger:response putSpeakerDefault

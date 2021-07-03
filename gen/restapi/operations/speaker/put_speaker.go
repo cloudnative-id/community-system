@@ -29,7 +29,7 @@ func NewPutSpeaker(ctx *middleware.Context, handler PutSpeakerHandler) *PutSpeak
 	return &PutSpeaker{Context: ctx, Handler: handler}
 }
 
-/* PutSpeaker swagger:route PUT /meetups/{id}/speaker speaker putSpeaker
+/* PutSpeaker swagger:route PUT /meetups/{id}/speakers speaker putSpeaker
 
 Put speaker data.
 

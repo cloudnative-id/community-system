@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	log "github.com/sirupsen/logrus"
+
 	"github.com/cloudnative-id/community-system/pkg/storage"
 	"github.com/go-openapi/runtime/middleware"
 
@@ -13,13 +15,19 @@ type GetSponsorsHandler struct {
 }
 
 func (h *GetSponsorsHandler) Handle(params api_sponsor.GetSponsorsParams) middleware.Responder {
+	contextLogger := log.WithFields(log.Fields{
+		"handler": "GetSponsorsHandler",
+	})
+
 	sponsors, exist, err := h.storage.GetSponsors()
 
 	if !exist {
+		contextLogger.Errorf("sponsor is not exist")
 		return api_sponsor.NewGetSponsorsNotFound()
 	}
 
 	if err != nil {
+		contextLogger.Errorf("getting sponsor: %s", err)
 		return api_sponsor.NewGetSponsorsDefault(500)
 	}
 

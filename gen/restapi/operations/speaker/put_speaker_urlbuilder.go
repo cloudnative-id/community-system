@@ -40,7 +40,7 @@ func (o *PutSpeakerURL) SetBasePath(bp string) {
 func (o *PutSpeakerURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/meetups/{id}/speaker"
+	var _path = "/meetups/{id}/speakers"
 
 	id := o.ID
 	if id != "" {
