@@ -56,6 +56,9 @@ func configureAPI(api *operations.CommunitySystemAPI) http.Handler {
 	api.SponsorPutSponsorHandler = handlers.NewPutSponsorHandler(store)
 	api.SponsorGetSponsorsHandler = handlers.NewGetSponsorsHandler(store)
 
+	api.SpeakerGetSpeakersHandler = handlers.NewGetSpeakersHandler(store)
+	api.SpeakerPutSpeakerHandler = handlers.NewPutSpeakerHandler(store)
+
 	if api.MeetupGetMeetupHandler == nil {
 		api.MeetupGetMeetupHandler = meetup.GetMeetupHandlerFunc(func(params meetup.GetMeetupParams) middleware.Responder {
 			return middleware.NotImplemented("operation meetup.GetMeetup has not yet been implemented")

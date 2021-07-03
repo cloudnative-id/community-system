@@ -63,8 +63,8 @@ paths:
     get:
       tags: [meetup]
       operationId: getMeetup
-      summary: Returns a list of meetups.
-      description: A JSON array of meetups
+      summary: Returns a meetup.
+      description: A meetup object in json
       produces:
         - application/json
       parameters:
@@ -83,10 +83,10 @@ paths:
           description: Meetup not found
         default:
           description: Unexpected error
-  /meetups/{id}/speaker:
+  /meetups/{id}/speakers:
     get:
       tags: [speaker]
-      operationId: getSpeaker
+      operationId: getSpeakers
       summary: Returns a list of speakers in meetup.
       description: A JSON array of speakers
       produces:
@@ -133,6 +133,8 @@ paths:
           description: object uuid & status
           schema:
             $ref: '#/definitions/CreateObject'
+        '404':
+          description: Meetup not found
         default:
           description: Unexpected error
   /meetups/sponsors:

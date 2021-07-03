@@ -12,8 +12,8 @@ import (
 	"strings"
 )
 
-// GetSpeakerURL generates an URL for the get speaker operation
-type GetSpeakerURL struct {
+// GetSpeakersURL generates an URL for the get speakers operation
+type GetSpeakersURL struct {
 	ID string
 
 	_basePath string
@@ -24,7 +24,7 @@ type GetSpeakerURL struct {
 // WithBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
-func (o *GetSpeakerURL) WithBasePath(bp string) *GetSpeakerURL {
+func (o *GetSpeakersURL) WithBasePath(bp string) *GetSpeakersURL {
 	o.SetBasePath(bp)
 	return o
 }
@@ -32,21 +32,21 @@ func (o *GetSpeakerURL) WithBasePath(bp string) *GetSpeakerURL {
 // SetBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
-func (o *GetSpeakerURL) SetBasePath(bp string) {
+func (o *GetSpeakersURL) SetBasePath(bp string) {
 	o._basePath = bp
 }
 
 // Build a url path and query string
-func (o *GetSpeakerURL) Build() (*url.URL, error) {
+func (o *GetSpeakersURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/meetups/{id}/speaker"
+	var _path = "/meetups/{id}/speakers"
 
 	id := o.ID
 	if id != "" {
 		_path = strings.Replace(_path, "{id}", id, -1)
 	} else {
-		return nil, errors.New("id is required on GetSpeakerURL")
+		return nil, errors.New("id is required on GetSpeakersURL")
 	}
 
 	_basePath := o._basePath
@@ -59,7 +59,7 @@ func (o *GetSpeakerURL) Build() (*url.URL, error) {
 }
 
 // Must is a helper function to panic when the url builder returns an error
-func (o *GetSpeakerURL) Must(u *url.URL, err error) *url.URL {
+func (o *GetSpeakersURL) Must(u *url.URL, err error) *url.URL {
 	if err != nil {
 		panic(err)
 	}
@@ -70,17 +70,17 @@ func (o *GetSpeakerURL) Must(u *url.URL, err error) *url.URL {
 }
 
 // String returns the string representation of the path with query string
-func (o *GetSpeakerURL) String() string {
+func (o *GetSpeakersURL) String() string {
 	return o.Must(o.Build()).String()
 }
 
 // BuildFull builds a full url with scheme, host, path and query string
-func (o *GetSpeakerURL) BuildFull(scheme, host string) (*url.URL, error) {
+func (o *GetSpeakersURL) BuildFull(scheme, host string) (*url.URL, error) {
 	if scheme == "" {
-		return nil, errors.New("scheme is required for a full url on GetSpeakerURL")
+		return nil, errors.New("scheme is required for a full url on GetSpeakersURL")
 	}
 	if host == "" {
-		return nil, errors.New("host is required for a full url on GetSpeakerURL")
+		return nil, errors.New("host is required for a full url on GetSpeakersURL")
 	}
 
 	base, err := o.Build()
@@ -94,6 +94,6 @@ func (o *GetSpeakerURL) BuildFull(scheme, host string) (*url.URL, error) {
 }
 
 // StringFull returns the string representation of a complete url
-func (o *GetSpeakerURL) StringFull(scheme, host string) string {
+func (o *GetSpeakersURL) StringFull(scheme, host string) string {
 	return o.Must(o.BuildFull(scheme, host)).String()
 }

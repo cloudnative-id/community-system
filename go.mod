@@ -19,6 +19,8 @@ require (
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/prometheus/common v0.7.0
+	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.0
 	go.mongodb.org/mongo-driver v1.5.3 // indirect
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2

@@ -201,7 +201,7 @@ func init() {
         }
       }
     },
-    "/meetups/{id}/speaker": {
+    "/meetups/{id}/speakers": {
       "get": {
         "description": "A JSON array of speakers",
         "produces": [
@@ -211,7 +211,7 @@ func init() {
           "speaker"
         ],
         "summary": "Returns a list of speakers in meetup.",
-        "operationId": "getSpeaker",
+        "operationId": "getSpeakers",
         "parameters": [
           {
             "minimum": 1,
@@ -274,6 +274,9 @@ func init() {
             "schema": {
               "$ref": "#/definitions/CreateObject"
             }
+          },
+          "404": {
+            "description": "Meetup not found"
           },
           "default": {
             "description": "Unexpected error"
@@ -586,7 +589,7 @@ func init() {
         }
       }
     },
-    "/meetups/{id}/speaker": {
+    "/meetups/{id}/speakers": {
       "get": {
         "description": "A JSON array of speakers",
         "produces": [
@@ -596,7 +599,7 @@ func init() {
           "speaker"
         ],
         "summary": "Returns a list of speakers in meetup.",
-        "operationId": "getSpeaker",
+        "operationId": "getSpeakers",
         "parameters": [
           {
             "minimum": 1,
@@ -659,6 +662,9 @@ func init() {
             "schema": {
               "$ref": "#/definitions/CreateObject"
             }
+          },
+          "404": {
+            "description": "Meetup not found"
           },
           "default": {
             "description": "Unexpected error"
