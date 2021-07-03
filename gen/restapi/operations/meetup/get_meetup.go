@@ -31,9 +31,9 @@ func NewGetMeetup(ctx *middleware.Context, handler GetMeetupHandler) *GetMeetup 
 
 /* GetMeetup swagger:route GET /meetups/{id} meetup getMeetup
 
-Returns a list of meetups.
+Returns a meetup.
 
-A JSON array of meetups
+A meetup object in json
 
 */
 type GetMeetup struct {

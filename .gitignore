@@ -1,0 +1,10 @@
+.idea/
+.DS_STORE
+
+build/
+
+bin/
+vendor/
+output/
+
+.env

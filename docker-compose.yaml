@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: community-system
+      POSTGRES_USER: community-system
+      POSTGRES_PASSWORD: community-system
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - community-system-data:/var/lib/postgresql/data/
+volumes:
+  community-system-data:

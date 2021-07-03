@@ -166,14 +166,14 @@ func init() {
     },
     "/meetups/{id}": {
       "get": {
-        "description": "A JSON array of meetups",
+        "description": "A meetup object in json",
         "produces": [
           "application/json"
         ],
         "tags": [
           "meetup"
         ],
-        "summary": "Returns a list of meetups.",
+        "summary": "Returns a meetup.",
         "operationId": "getMeetup",
         "parameters": [
           {
@@ -554,14 +554,14 @@ func init() {
     },
     "/meetups/{id}": {
       "get": {
-        "description": "A JSON array of meetups",
+        "description": "A meetup object in json",
         "produces": [
           "application/json"
         ],
         "tags": [
           "meetup"
         ],
-        "summary": "Returns a list of meetups.",
+        "summary": "Returns a meetup.",
         "operationId": "getMeetup",
         "parameters": [
           {
