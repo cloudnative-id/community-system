@@ -21,8 +21,7 @@ func (h *PutMeetupHandler) Handle(params api_meetup.PutMeetupParams) middleware.
 		"handler": "PutMeetupHandler",
 	})
 
-	var tags models.Tags
-	tags = params.Meetup.Tags
+	tags := params.Meetup.Tags
 
 	MeetupUUID := uuid.New()
 

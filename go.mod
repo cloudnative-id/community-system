@@ -15,11 +15,12 @@ require (
 	github.com/go-openapi/validate v0.20.2
 	github.com/gofrs/uuid v4.0.0+incompatible
 	github.com/golang/mock v1.6.0
+	github.com/golangci/golangci-lint v1.41.1 // indirect
 	github.com/google/uuid v1.2.0
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/prometheus/common v0.7.0
+	github.com/prometheus/common v0.10.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.0
 	go.mongodb.org/mongo-driver v1.5.3 // indirect

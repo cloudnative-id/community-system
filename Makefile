@@ -45,6 +45,11 @@ test:
 	go test -coverprofile=./output/coverage.out -race ./...
 	go tool cover -html=./output/coverage.out -o ./output/coverage.html
 
+.PHONY: lint
+lint: 
+	go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.41.1
+	golangci-lint run --verbose
+
 .PHONY: dev.environment.up
 dev.environment.up:
 	docker-compose up -d
