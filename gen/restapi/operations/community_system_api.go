@@ -58,6 +58,9 @@ func NewCommunitySystemAPI(spec *loads.Document) *CommunitySystemAPI {
 		SponsorGetSponsorsHandler: sponsor.GetSponsorsHandlerFunc(func(params sponsor.GetSponsorsParams) middleware.Responder {
 			return middleware.NotImplemented("operation sponsor.GetSponsors has not yet been implemented")
 		}),
+		SponsorPatchSponsorHandler: sponsor.PatchSponsorHandlerFunc(func(params sponsor.PatchSponsorParams) middleware.Responder {
+			return middleware.NotImplemented("operation sponsor.PatchSponsor has not yet been implemented")
+		}),
 		MeetupPutMeetupHandler: meetup.PutMeetupHandlerFunc(func(params meetup.PutMeetupParams) middleware.Responder {
 			return middleware.NotImplemented("operation meetup.PutMeetup has not yet been implemented")
 		}),
@@ -111,6 +114,8 @@ type CommunitySystemAPI struct {
 	SpeakerGetSpeakersHandler speaker.GetSpeakersHandler
 	// SponsorGetSponsorsHandler sets the operation handler for the get sponsors operation
 	SponsorGetSponsorsHandler sponsor.GetSponsorsHandler
+	// SponsorPatchSponsorHandler sets the operation handler for the patch sponsor operation
+	SponsorPatchSponsorHandler sponsor.PatchSponsorHandler
 	// MeetupPutMeetupHandler sets the operation handler for the put meetup operation
 	MeetupPutMeetupHandler meetup.PutMeetupHandler
 	// SpeakerPutSpeakerHandler sets the operation handler for the put speaker operation
@@ -205,6 +210,9 @@ func (o *CommunitySystemAPI) Validate() error {
 	}
 	if o.SponsorGetSponsorsHandler == nil {
 		unregistered = append(unregistered, "sponsor.GetSponsorsHandler")
+	}
+	if o.SponsorPatchSponsorHandler == nil {
+		unregistered = append(unregistered, "sponsor.PatchSponsorHandler")
 	}
 	if o.MeetupPutMeetupHandler == nil {
 		unregistered = append(unregistered, "meetup.PutMeetupHandler")
@@ -306,7 +314,7 @@ func (o *CommunitySystemAPI) initHandlerCache() {
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/meetups/{id}"] = meetup.NewGetMeetup(o.context, o.MeetupGetMeetupHandler)
+	o.handlers["GET"]["/meetups/{meetup_id}"] = meetup.NewGetMeetup(o.context, o.MeetupGetMeetupHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
@@ -314,11 +322,15 @@ func (o *CommunitySystemAPI) initHandlerCache() {
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/meetups/{id}/speakers"] = speaker.NewGetSpeakers(o.context, o.SpeakerGetSpeakersHandler)
+	o.handlers["GET"]["/meetups/{meetup_id}/speakers"] = speaker.NewGetSpeakers(o.context, o.SpeakerGetSpeakersHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/meetups/sponsors"] = sponsor.NewGetSponsors(o.context, o.SponsorGetSponsorsHandler)
+	if o.handlers["PATCH"] == nil {
+		o.handlers["PATCH"] = make(map[string]http.Handler)
+	}
+	o.handlers["PATCH"]["/meetups/sponsors/{sponsor_id}"] = sponsor.NewPatchSponsor(o.context, o.SponsorPatchSponsorHandler)
 	if o.handlers["PUT"] == nil {
 		o.handlers["PUT"] = make(map[string]http.Handler)
 	}
@@ -326,7 +338,7 @@ func (o *CommunitySystemAPI) initHandlerCache() {
 	if o.handlers["PUT"] == nil {
 		o.handlers["PUT"] = make(map[string]http.Handler)
 	}
-	o.handlers["PUT"]["/meetups/{id}/speakers"] = speaker.NewPutSpeaker(o.context, o.SpeakerPutSpeakerHandler)
+	o.handlers["PUT"]["/meetups/{meetup_id}/speakers"] = speaker.NewPutSpeaker(o.context, o.SpeakerPutSpeakerHandler)
 	if o.handlers["PUT"] == nil {
 		o.handlers["PUT"] = make(map[string]http.Handler)
 	}

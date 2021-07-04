@@ -29,7 +29,7 @@ func NewGetSpeakers(ctx *middleware.Context, handler GetSpeakersHandler) *GetSpe
 	return &GetSpeakers{Context: ctx, Handler: handler}
 }
 
-/* GetSpeakers swagger:route GET /meetups/{id}/speakers speaker getSpeakers
+/* GetSpeakers swagger:route GET /meetups/{meetup_id}/speakers speaker getSpeakers
 
 Returns a list of speakers in meetup.
 

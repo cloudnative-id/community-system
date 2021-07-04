@@ -4,15 +4,14 @@ package restapi
 
 import (
 	"crypto/tls"
-	"log"
 	"net/http"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/runtime/middleware"
 
 	"github.com/cloudnative-id/community-system/gen/restapi/operations"
-	"github.com/cloudnative-id/community-system/gen/restapi/operations/meetup"
 	"github.com/cloudnative-id/community-system/handlers"
 	"github.com/cloudnative-id/community-system/pkg/settings"
 	"github.com/cloudnative-id/community-system/pkg/storage/postgres"
@@ -25,6 +24,10 @@ func configureFlags(api *operations.CommunitySystemAPI) {
 }
 
 func configureAPI(api *operations.CommunitySystemAPI) http.Handler {
+	contextLogger := log.WithFields(log.Fields{
+		"handler": "PatchSponsorHandler",
+	})
+
 	api.ServeError = errors.ServeError
 	api.UseSwaggerUI()
 
@@ -36,17 +39,17 @@ func configureAPI(api *operations.CommunitySystemAPI) http.Handler {
 
 	err := store.MigrateMeetup()
 	if err != nil {
-		log.Fatalln(err)
+		contextLogger.Fatalln(err)
 	}
 
 	err = store.MigrateSpeaker()
 	if err != nil {
-		log.Fatalln(err)
+		contextLogger.Fatalln(err)
 	}
 
 	err = store.MigrateSponsor()
 	if err != nil {
-		log.Fatalln(err)
+		contextLogger.Fatalln(err)
 	}
 
 	api.MeetupGetMeetupHandler = handlers.NewGetMeetupHandler(store)
@@ -55,25 +58,10 @@ func configureAPI(api *operations.CommunitySystemAPI) http.Handler {
 
 	api.SponsorPutSponsorHandler = handlers.NewPutSponsorHandler(store)
 	api.SponsorGetSponsorsHandler = handlers.NewGetSponsorsHandler(store)
+	api.SponsorPatchSponsorHandler = handlers.NewPatchSponsorHandler(store)
 
 	api.SpeakerGetSpeakersHandler = handlers.NewGetSpeakersHandler(store)
 	api.SpeakerPutSpeakerHandler = handlers.NewPutSpeakerHandler(store)
-
-	if api.MeetupGetMeetupHandler == nil {
-		api.MeetupGetMeetupHandler = meetup.GetMeetupHandlerFunc(func(params meetup.GetMeetupParams) middleware.Responder {
-			return middleware.NotImplemented("operation meetup.GetMeetup has not yet been implemented")
-		})
-	}
-	if api.MeetupGetMeetupsHandler == nil {
-		api.MeetupGetMeetupsHandler = meetup.GetMeetupsHandlerFunc(func(params meetup.GetMeetupsParams) middleware.Responder {
-			return middleware.NotImplemented("operation meetup.GetMeetups has not yet been implemented")
-		})
-	}
-	if api.MeetupPutMeetupHandler == nil {
-		api.MeetupPutMeetupHandler = meetup.PutMeetupHandlerFunc(func(params meetup.PutMeetupParams) middleware.Responder {
-			return middleware.NotImplemented("operation meetup.PutMeetup has not yet been implemented")
-		})
-	}
 
 	api.PreServerShutdown = func() {}
 	api.ServerShutdown = func() {}

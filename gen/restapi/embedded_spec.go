@@ -84,6 +84,7 @@ func init() {
             "description": "The meetup to create.",
             "name": "meetup",
             "in": "body",
+            "required": true,
             "schema": {
               "$ref": "#/definitions/Meetup"
             }
@@ -146,6 +147,7 @@ func init() {
             "description": "The sponsor to create.",
             "name": "sponsor",
             "in": "body",
+            "required": true,
             "schema": {
               "$ref": "#/definitions/Sponsor"
             }
@@ -164,7 +166,47 @@ func init() {
         }
       }
     },
-    "/meetups/{id}": {
+    "/meetups/sponsors/{sponsor_id}": {
+      "patch": {
+        "description": "update sponsor",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "sponsor"
+        ],
+        "summary": "Patch sponsor data.",
+        "operationId": "patchSponsor",
+        "parameters": [
+          {
+            "minimum": 1,
+            "type": "string",
+            "description": "The ID of the sponsor.",
+            "name": "sponsor_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "The sponsor to create.",
+            "name": "sponsor",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Sponsor"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "updated"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/meetups/{meetup_id}": {
       "get": {
         "description": "A meetup object in json",
         "produces": [
@@ -180,7 +222,7 @@ func init() {
             "minimum": 1,
             "type": "string",
             "description": "The ID of the meetup to return.",
-            "name": "id",
+            "name": "meetup_id",
             "in": "path",
             "required": true
           }
@@ -201,7 +243,7 @@ func init() {
         }
       }
     },
-    "/meetups/{id}/speakers": {
+    "/meetups/{meetup_id}/speakers": {
       "get": {
         "description": "A JSON array of speakers",
         "produces": [
@@ -217,7 +259,7 @@ func init() {
             "minimum": 1,
             "type": "string",
             "description": "The ID of the meetup to return.",
-            "name": "id",
+            "name": "meetup_id",
             "in": "path",
             "required": true
           }
@@ -255,7 +297,7 @@ func init() {
             "minimum": 1,
             "type": "string",
             "description": "The ID of the meetup.",
-            "name": "id",
+            "name": "meetup_id",
             "in": "path",
             "required": true
           },
@@ -263,6 +305,7 @@ func init() {
             "description": "The speaker to create.",
             "name": "speaker",
             "in": "body",
+            "required": true,
             "schema": {
               "$ref": "#/definitions/Speaker"
             }
@@ -326,7 +369,7 @@ func init() {
         "registrationUrl": {
           "type": "string"
         },
-        "speaker": {
+        "speakers": {
           "type": "array",
           "items": {
             "type": "string"
@@ -472,6 +515,7 @@ func init() {
             "description": "The meetup to create.",
             "name": "meetup",
             "in": "body",
+            "required": true,
             "schema": {
               "$ref": "#/definitions/Meetup"
             }
@@ -534,6 +578,7 @@ func init() {
             "description": "The sponsor to create.",
             "name": "sponsor",
             "in": "body",
+            "required": true,
             "schema": {
               "$ref": "#/definitions/Sponsor"
             }
@@ -552,7 +597,47 @@ func init() {
         }
       }
     },
-    "/meetups/{id}": {
+    "/meetups/sponsors/{sponsor_id}": {
+      "patch": {
+        "description": "update sponsor",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "sponsor"
+        ],
+        "summary": "Patch sponsor data.",
+        "operationId": "patchSponsor",
+        "parameters": [
+          {
+            "minimum": 1,
+            "type": "string",
+            "description": "The ID of the sponsor.",
+            "name": "sponsor_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "The sponsor to create.",
+            "name": "sponsor",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Sponsor"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "updated"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/meetups/{meetup_id}": {
       "get": {
         "description": "A meetup object in json",
         "produces": [
@@ -568,7 +653,7 @@ func init() {
             "minimum": 1,
             "type": "string",
             "description": "The ID of the meetup to return.",
-            "name": "id",
+            "name": "meetup_id",
             "in": "path",
             "required": true
           }
@@ -589,7 +674,7 @@ func init() {
         }
       }
     },
-    "/meetups/{id}/speakers": {
+    "/meetups/{meetup_id}/speakers": {
       "get": {
         "description": "A JSON array of speakers",
         "produces": [
@@ -605,7 +690,7 @@ func init() {
             "minimum": 1,
             "type": "string",
             "description": "The ID of the meetup to return.",
-            "name": "id",
+            "name": "meetup_id",
             "in": "path",
             "required": true
           }
@@ -643,7 +728,7 @@ func init() {
             "minimum": 1,
             "type": "string",
             "description": "The ID of the meetup.",
-            "name": "id",
+            "name": "meetup_id",
             "in": "path",
             "required": true
           },
@@ -651,6 +736,7 @@ func init() {
             "description": "The speaker to create.",
             "name": "speaker",
             "in": "body",
+            "required": true,
             "schema": {
               "$ref": "#/definitions/Speaker"
             }
@@ -714,7 +800,7 @@ func init() {
         "registrationUrl": {
           "type": "string"
         },
-        "speaker": {
+        "speakers": {
           "type": "array",
           "items": {
             "type": "string"

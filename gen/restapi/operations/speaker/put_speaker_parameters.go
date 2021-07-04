@@ -7,6 +7,7 @@ package speaker
 
 import (
 	"context"
+	"io"
 	"net/http"
 
 	"github.com/go-openapi/errors"
@@ -39,8 +40,9 @@ type PutSpeakerParams struct {
 	  Required: true
 	  In: path
 	*/
-	ID string
+	MeetupID string
 	/*The speaker to create.
+	  Required: true
 	  In: body
 	*/
 	Speaker *models.Speaker
@@ -55,8 +57,8 @@ func (o *PutSpeakerParams) BindRequest(r *http.Request, route *middleware.Matche
 
 	o.HTTPRequest = r
 
-	rID, rhkID, _ := route.Params.GetOK("id")
-	if err := o.bindID(rID, rhkID, route.Formats); err != nil {
+	rMeetupID, rhkMeetupID, _ := route.Params.GetOK("meetup_id")
+	if err := o.bindMeetupID(rMeetupID, rhkMeetupID, route.Formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -64,7 +66,11 @@ func (o *PutSpeakerParams) BindRequest(r *http.Request, route *middleware.Matche
 		defer r.Body.Close()
 		var body models.Speaker
 		if err := route.Consumer.Consume(r.Body, &body); err != nil {
-			res = append(res, errors.NewParseError("speaker", "body", "", err))
+			if err == io.EOF {
+				res = append(res, errors.Required("speaker", "body", ""))
+			} else {
+				res = append(res, errors.NewParseError("speaker", "body", "", err))
+			}
 		} else {
 			// validate body object
 			if err := body.Validate(route.Formats); err != nil {
@@ -80,6 +86,8 @@ func (o *PutSpeakerParams) BindRequest(r *http.Request, route *middleware.Matche
 				o.Speaker = &body
 			}
 		}
+	} else {
+		res = append(res, errors.Required("speaker", "body", ""))
 	}
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
@@ -87,8 +95,8 @@ func (o *PutSpeakerParams) BindRequest(r *http.Request, route *middleware.Matche
 	return nil
 }
 
-// bindID binds and validates parameter ID from path.
-func (o *PutSpeakerParams) bindID(rawData []string, hasKey bool, formats strfmt.Registry) error {
+// bindMeetupID binds and validates parameter MeetupID from path.
+func (o *PutSpeakerParams) bindMeetupID(rawData []string, hasKey bool, formats strfmt.Registry) error {
 	var raw string
 	if len(rawData) > 0 {
 		raw = rawData[len(rawData)-1]
@@ -96,7 +104,7 @@ func (o *PutSpeakerParams) bindID(rawData []string, hasKey bool, formats strfmt.
 
 	// Required: true
 	// Parameter is provided by construction from the route
-	o.ID = raw
+	o.MeetupID = raw
 
 	return nil
 }

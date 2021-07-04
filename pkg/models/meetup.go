@@ -23,7 +23,7 @@ type Meetup struct {
 	Tags            Tags             `gorm:"type:jsonb;not null;" json:"tags"`
 	RegistrationURL string           `gorm:"type:varchar(255);" json:"registrationUrl"`
 	Image           string           `gorm:"type:varchar(255);" json:"image"`
-	Speaker         UUIDs            `gorm:"type:jsonb;" json:"speaker"`
+	Speakers        UUIDs            `gorm:"type:jsonb;" json:"speaker"`
 	Sponsors        UUIDs            `gorm:"type:jsonb;" json:"sponsors"`
 	Status          bool             `json:"status"`
 }
@@ -75,7 +75,7 @@ func (m Meetup) ToAPIMeetup() *api_model.Meetup {
 		Tags:            m.Tags,
 		RegistrationURL: m.RegistrationURL,
 		Image:           m.Image,
-		Speaker:         m.Speaker.ArrayString(),
+		Speakers:        m.Speakers.ArrayString(),
 		Sponsors:        m.Sponsors.ArrayString(),
 		Status:          m.Status,
 	}

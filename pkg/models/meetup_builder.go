@@ -60,8 +60,8 @@ func (m *MeetupBuilder) SetImage(image string) *MeetupBuilder {
 	return m
 }
 
-func (m *MeetupBuilder) SetSpeaker(speakers UUIDs) *MeetupBuilder {
-	m.meetup.Speaker = speakers
+func (m *MeetupBuilder) SetSpeakers(speakers UUIDs) *MeetupBuilder {
+	m.meetup.Speakers = speakers
 	return m
 }
 

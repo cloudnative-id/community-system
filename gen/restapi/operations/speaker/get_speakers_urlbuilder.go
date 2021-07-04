@@ -14,7 +14,7 @@ import (
 
 // GetSpeakersURL generates an URL for the get speakers operation
 type GetSpeakersURL struct {
-	ID string
+	MeetupID string
 
 	_basePath string
 	// avoid unkeyed usage
@@ -40,13 +40,13 @@ func (o *GetSpeakersURL) SetBasePath(bp string) {
 func (o *GetSpeakersURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/meetups/{id}/speakers"
+	var _path = "/meetups/{meetup_id}/speakers"
 
-	id := o.ID
-	if id != "" {
-		_path = strings.Replace(_path, "{id}", id, -1)
+	meetupID := o.MeetupID
+	if meetupID != "" {
+		_path = strings.Replace(_path, "{meetup_id}", meetupID, -1)
 	} else {
-		return nil, errors.New("id is required on GetSpeakersURL")
+		return nil, errors.New("meetupId is required on GetSpeakersURL")
 	}
 
 	_basePath := o._basePath

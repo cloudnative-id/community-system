@@ -19,7 +19,7 @@ func (h *GetMeetupHandler) Handle(params api_meetup.GetMeetupParams) middleware.
 		"handler": "GetMeetupHandler",
 	})
 
-	meetup, exist, err := h.storage.GetMeetup(params.ID)
+	meetup, exist, err := h.storage.GetMeetup(params.MeetupID)
 	if !exist {
 		contextLogger.Errorf("meetup is not exist")
 		return api_meetup.NewGetMeetupNotFound()
@@ -40,7 +40,7 @@ func (h *GetMeetupHandler) Handle(params api_meetup.GetMeetupParams) middleware.
 		Duration:        meetup.Duration,
 		RegistrationURL: meetup.RegistrationURL,
 		Image:           meetup.Image,
-		Speaker:         meetup.Speaker.ArrayString(),
+		Speakers:        meetup.Speakers.ArrayString(),
 		Sponsors:        meetup.Sponsors.ArrayString(),
 		Status:          meetup.Status,
 	})

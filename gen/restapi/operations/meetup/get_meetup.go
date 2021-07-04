@@ -29,7 +29,7 @@ func NewGetMeetup(ctx *middleware.Context, handler GetMeetupHandler) *GetMeetup 
 	return &GetMeetup{Context: ctx, Handler: handler}
 }
 
-/* GetMeetup swagger:route GET /meetups/{id} meetup getMeetup
+/* GetMeetup swagger:route GET /meetups/{meetup_id} meetup getMeetup
 
 Returns a meetup.
 

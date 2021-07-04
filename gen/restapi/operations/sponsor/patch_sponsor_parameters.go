@@ -13,24 +13,25 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/validate"
 
 	"github.com/cloudnative-id/community-system/gen/models"
 )
 
-// NewPutSponsorParams creates a new PutSponsorParams object
+// NewPatchSponsorParams creates a new PatchSponsorParams object
 //
 // There are no default values defined in the spec.
-func NewPutSponsorParams() PutSponsorParams {
+func NewPatchSponsorParams() PatchSponsorParams {
 
-	return PutSponsorParams{}
+	return PatchSponsorParams{}
 }
 
-// PutSponsorParams contains all the bound params for the put sponsor operation
+// PatchSponsorParams contains all the bound params for the patch sponsor operation
 // typically these are obtained from a http.Request
 //
-// swagger:parameters putSponsor
-type PutSponsorParams struct {
+// swagger:parameters patchSponsor
+type PatchSponsorParams struct {
 
 	// HTTP Request Object
 	HTTPRequest *http.Request `json:"-"`
@@ -40,13 +41,18 @@ type PutSponsorParams struct {
 	  In: body
 	*/
 	Sponsor *models.Sponsor
+	/*The ID of the sponsor.
+	  Required: true
+	  In: path
+	*/
+	SponsorID string
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
 // for simple values it will use straight method calls.
 //
-// To ensure default values, the struct must have been initialized with NewPutSponsorParams() beforehand.
-func (o *PutSponsorParams) BindRequest(r *http.Request, route *middleware.MatchedRoute) error {
+// To ensure default values, the struct must have been initialized with NewPatchSponsorParams() beforehand.
+func (o *PatchSponsorParams) BindRequest(r *http.Request, route *middleware.MatchedRoute) error {
 	var res []error
 
 	o.HTTPRequest = r
@@ -78,8 +84,27 @@ func (o *PutSponsorParams) BindRequest(r *http.Request, route *middleware.Matche
 	} else {
 		res = append(res, errors.Required("sponsor", "body", ""))
 	}
+
+	rSponsorID, rhkSponsorID, _ := route.Params.GetOK("sponsor_id")
+	if err := o.bindSponsorID(rSponsorID, rhkSponsorID, route.Formats); err != nil {
+		res = append(res, err)
+	}
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+// bindSponsorID binds and validates parameter SponsorID from path.
+func (o *PatchSponsorParams) bindSponsorID(rawData []string, hasKey bool, formats strfmt.Registry) error {
+	var raw string
+	if len(rawData) > 0 {
+		raw = rawData[len(rawData)-1]
+	}
+
+	// Required: true
+	// Parameter is provided by construction from the route
+	o.SponsorID = raw
+
 	return nil
 }
