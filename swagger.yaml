@@ -10,7 +10,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 
-host: "0.0.0.0"
+host: "0.0.0.0:8080"
 basePath: "/api/v1"
 
 schemes:
@@ -49,6 +49,7 @@ paths:
       parameters:
         - in: body
           name: meetup
+          required: true
           description: The meetup to create.
           schema:
             $ref: '#/definitions/Meetup'
@@ -59,7 +60,7 @@ paths:
             $ref: '#/definitions/CreateObject'
         default:
           description: Unexpected error
-  /meetups/{id}:
+  /meetups/{meetup_id}:
     get:
       tags: [meetup]
       operationId: getMeetup
@@ -69,7 +70,7 @@ paths:
         - application/json
       parameters:
         - in: path
-          name: id
+          name: meetup_id
           required: true
           type: string
           minimum: 1
@@ -83,7 +84,7 @@ paths:
           description: Meetup not found
         default:
           description: Unexpected error
-  /meetups/{id}/speakers:
+  /meetups/{meetup_id}/speakers:
     get:
       tags: [speaker]
       operationId: getSpeakers
@@ -93,7 +94,7 @@ paths:
         - application/json
       parameters:
         - in: path
-          name: id
+          name: meetup_id
           required: true
           type: string
           minimum: 1
@@ -118,13 +119,14 @@ paths:
         - application/json
       parameters:
         - in: path
-          name: id
+          name: meetup_id
           required: true
           type: string
           minimum: 1
           description: The ID of the meetup.
         - in: body
           name: speaker
+          required: true
           description: The speaker to create.
           schema:
             $ref: '#/definitions/Speaker'
@@ -166,6 +168,7 @@ paths:
       parameters:
         - in: body
           name: sponsor
+          required: true
           description: The sponsor to create.
           schema:
             $ref: '#/definitions/Sponsor'
@@ -176,7 +179,32 @@ paths:
             $ref: '#/definitions/CreateObject'
         default:
           description: Unexpected error
-
+  /meetups/sponsors/{sponsor_id}:
+    patch:
+      tags: [sponsor]
+      operationId: patchSponsor
+      summary: Patch sponsor data.
+      description: update sponsor
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: sponsor_id
+          required: true
+          type: string
+          minimum: 1
+          description: The ID of the sponsor.
+        - in: body
+          name: sponsor
+          required: true
+          description: The sponsor to create.
+          schema:
+            $ref: '#/definitions/Sponsor'
+      responses:
+        '204':
+          description: updated
+        default:
+          description: Unexpected error      
 definitions:
   CreateObject:
     type: object
@@ -213,7 +241,7 @@ definitions:
         type: array
         items:
           type: string
-      speaker:
+      speakers:
         type: array
         items:
           type: string

@@ -48,9 +48,9 @@ func (p PostgresClient) WriteMeetup(meetup models.Meetup) error {
 	return nil
 }
 
-func (p PostgresClient) GetMeetup(uuid string) (models.Meetup, bool, error) {
+func (p PostgresClient) GetMeetup(meetupUUID string) (models.Meetup, bool, error) {
 	var meetup models.Meetup
-	tx := p.Client.Where("uuid = ?", uuid).First(&meetup)
+	tx := p.Client.Where("uuid = ?", meetupUUID).First(&meetup)
 
 	if tx.Error != nil {
 		if tx.Error == gorm.ErrRecordNotFound {
@@ -117,6 +117,21 @@ func (p PostgresClient) WriteSponsor(sponsor models.Sponsor) error {
 	}
 
 	return nil
+}
+
+func (p PostgresClient) GetSponsor(sponsorUUID string) (models.Sponsor, bool, error) {
+	var sponsor models.Sponsor
+	tx := p.Client.Where("uuid = ?", sponsorUUID).First(&sponsor)
+
+	if tx.Error != nil {
+		if tx.Error == gorm.ErrRecordNotFound {
+			return models.Sponsor{}, false, nil
+		}
+
+		return models.Sponsor{}, false, tx.Error
+	}
+
+	return sponsor, true, nil
 }
 
 func (p PostgresClient) GetSponsors() ([]models.Sponsor, bool, error) {

@@ -21,9 +21,9 @@ func (h *PutSpeakerHandler) Handle(params api_speaker.PutSpeakerParams) middlewa
 		"handler": "PutSpeakerHandler",
 	})
 
-	meetup, exist, err := h.storage.GetMeetup(params.ID)
+	meetup, exist, err := h.storage.GetMeetup(params.MeetupID)
 	if !exist {
-		contextLogger.Errorf("meetup %s is not exist", params.ID)
+		contextLogger.Errorf("meetup %s is not exist", params.MeetupID)
 		return api_speaker.NewPutSpeakerNotFound()
 	}
 
@@ -33,7 +33,7 @@ func (h *PutSpeakerHandler) Handle(params api_speaker.PutSpeakerParams) middlewa
 	}
 
 	speakerUUID := uuid.New()
-	meetupUUID := uuid.MustParse(params.ID)
+	meetupUUID := uuid.MustParse(params.MeetupID)
 
 	speaker, err := models.NewSpeakerBuilder().
 		SetUUID(&speakerUUID).
@@ -55,7 +55,7 @@ func (h *PutSpeakerHandler) Handle(params api_speaker.PutSpeakerParams) middlewa
 		return api_speaker.NewPutSpeakerDefault(500)
 	}
 
-	meetup.Speaker = append(meetup.Speaker, speakerUUID)
+	meetup.Speakers = append(meetup.Speakers, speakerUUID)
 	err = h.storage.WriteMeetup(meetup)
 	if err != nil {
 		contextLogger.Errorf("cannot write meetup: %s", err)

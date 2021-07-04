@@ -41,8 +41,8 @@ type Meetup struct {
 	// registration Url
 	RegistrationURL string `json:"registrationUrl,omitempty"`
 
-	// speaker
-	Speaker []string `json:"speaker"`
+	// speakers
+	Speakers []string `json:"speakers"`
 
 	// sponsors
 	Sponsors []string `json:"sponsors"`

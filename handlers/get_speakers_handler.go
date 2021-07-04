@@ -19,7 +19,7 @@ func (h *GetSpeakersHandler) Handle(params api_speaker.GetSpeakersParams) middle
 		"handler": "GetSpeakersHandler",
 	})
 
-	speakers, exist, err := h.storage.GetSpeakers(params.ID)
+	speakers, exist, err := h.storage.GetSpeakers(params.MeetupID)
 
 	if !exist {
 		contextLogger.Errorf("speaker is not exist")

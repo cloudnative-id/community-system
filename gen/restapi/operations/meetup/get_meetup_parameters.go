@@ -34,7 +34,7 @@ type GetMeetupParams struct {
 	  Required: true
 	  In: path
 	*/
-	ID string
+	MeetupID string
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -46,8 +46,8 @@ func (o *GetMeetupParams) BindRequest(r *http.Request, route *middleware.Matched
 
 	o.HTTPRequest = r
 
-	rID, rhkID, _ := route.Params.GetOK("id")
-	if err := o.bindID(rID, rhkID, route.Formats); err != nil {
+	rMeetupID, rhkMeetupID, _ := route.Params.GetOK("meetup_id")
+	if err := o.bindMeetupID(rMeetupID, rhkMeetupID, route.Formats); err != nil {
 		res = append(res, err)
 	}
 	if len(res) > 0 {
@@ -56,8 +56,8 @@ func (o *GetMeetupParams) BindRequest(r *http.Request, route *middleware.Matched
 	return nil
 }
 
-// bindID binds and validates parameter ID from path.
-func (o *GetMeetupParams) bindID(rawData []string, hasKey bool, formats strfmt.Registry) error {
+// bindMeetupID binds and validates parameter MeetupID from path.
+func (o *GetMeetupParams) bindMeetupID(rawData []string, hasKey bool, formats strfmt.Registry) error {
 	var raw string
 	if len(rawData) > 0 {
 		raw = rawData[len(rawData)-1]
@@ -65,7 +65,7 @@ func (o *GetMeetupParams) bindID(rawData []string, hasKey bool, formats strfmt.R
 
 	// Required: true
 	// Parameter is provided by construction from the route
-	o.ID = raw
+	o.MeetupID = raw
 
 	return nil
 }

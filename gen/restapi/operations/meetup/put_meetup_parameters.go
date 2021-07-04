@@ -7,6 +7,7 @@ package meetup
 
 import (
 	"context"
+	"io"
 	"net/http"
 
 	"github.com/go-openapi/errors"
@@ -35,6 +36,7 @@ type PutMeetupParams struct {
 	HTTPRequest *http.Request `json:"-"`
 
 	/*The meetup to create.
+	  Required: true
 	  In: body
 	*/
 	Meetup *models.Meetup
@@ -53,7 +55,11 @@ func (o *PutMeetupParams) BindRequest(r *http.Request, route *middleware.Matched
 		defer r.Body.Close()
 		var body models.Meetup
 		if err := route.Consumer.Consume(r.Body, &body); err != nil {
-			res = append(res, errors.NewParseError("meetup", "body", "", err))
+			if err == io.EOF {
+				res = append(res, errors.Required("meetup", "body", ""))
+			} else {
+				res = append(res, errors.NewParseError("meetup", "body", "", err))
+			}
 		} else {
 			// validate body object
 			if err := body.Validate(route.Formats); err != nil {
@@ -69,6 +75,8 @@ func (o *PutMeetupParams) BindRequest(r *http.Request, route *middleware.Matched
 				o.Meetup = &body
 			}
 		}
+	} else {
+		res = append(res, errors.Required("meetup", "body", ""))
 	}
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
