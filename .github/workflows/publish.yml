@@ -7,7 +7,6 @@ on:
 
 jobs:
   image:
-    name: Build and Push container image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
