@@ -33,7 +33,11 @@ func (h *PutSpeakerHandler) Handle(params api_speaker.PutSpeakerParams) middlewa
 	}
 
 	speakerUUID := uuid.New()
-	meetupUUID := uuid.MustParse(params.MeetupID)
+	meetupUUID, err := uuid.Parse(params.MeetupID)
+	if err != nil {
+		contextLogger.Errorf("cannot parse meetup uuid: %s", err)
+		return api_speaker.NewPutSpeakerDefault(500)
+	}
 
 	speaker, err := models.NewSpeakerBuilder().
 		SetUUID(&speakerUUID).
