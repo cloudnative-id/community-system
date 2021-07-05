@@ -14,17 +14,17 @@ type Sponsor struct {
 	Image *string    `gorm:"type:varchar(255);not null" json:"image"`
 }
 
-func (s Sponsor) sanitize() error {
+func (s Sponsor) Sanitize() error {
 	if s.UUID == nil {
-		return fmt.Errorf("UUID cannot empty")
+		return fmt.Errorf("uuid cannot empty")
 	}
 
 	if s.Name == nil {
-		return fmt.Errorf("Name cannot empty")
+		return fmt.Errorf("name cannot empty")
 	}
 
 	if s.Image == nil {
-		return fmt.Errorf("Image cannot empty")
+		return fmt.Errorf("image cannot empty")
 	}
 
 	return nil

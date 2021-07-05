@@ -76,7 +76,7 @@ func (m *MeetupBuilder) SetStatus(status bool) *MeetupBuilder {
 }
 
 func (m *MeetupBuilder) Build() (Meetup, error) {
-	err := m.meetup.sanitize()
+	err := m.meetup.Sanitize()
 	if err != nil {
 		return Meetup{}, err
 	}

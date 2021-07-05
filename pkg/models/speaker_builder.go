@@ -50,7 +50,7 @@ func (m *SpeakerBuilder) SetImage(image *string) *SpeakerBuilder {
 }
 
 func (m *SpeakerBuilder) Build() (Speaker, error) {
-	err := m.speaker.sanitize()
+	err := m.speaker.Sanitize()
 	if err != nil {
 		return Speaker{}, err
 	}

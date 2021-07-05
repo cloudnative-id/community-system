@@ -18,33 +18,33 @@ type Speaker struct {
 	Image      *string    `gorm:"type:varchar(255);not null" json:"image"`
 }
 
-func (s Speaker) sanitize() error {
+func (s Speaker) Sanitize() error {
 	if s.UUID == nil {
-		return fmt.Errorf("UUID cannot empty")
+		return fmt.Errorf("uuid cannot empty")
 	}
 
 	if s.MeetupUUID == nil {
-		return fmt.Errorf("MeetupUUID cannot empty")
+		return fmt.Errorf("meetup uuid cannot empty")
 	}
 
 	if s.Name == nil {
-		return fmt.Errorf("Name cannot empty")
+		return fmt.Errorf("name cannot empty")
 	}
 
 	if s.Position == nil {
-		return fmt.Errorf("Position cannot empty")
+		return fmt.Errorf("position cannot empty")
 	}
 
 	if s.Company == nil {
-		return fmt.Errorf("Company cannot empty")
+		return fmt.Errorf("company cannot empty")
 	}
 
 	if s.Title == nil {
-		return fmt.Errorf("Position cannot empty")
+		return fmt.Errorf("position cannot empty")
 	}
 
 	if s.Image == nil {
-		return fmt.Errorf("Image cannot empty")
+		return fmt.Errorf("image cannot empty")
 	}
 
 	return nil

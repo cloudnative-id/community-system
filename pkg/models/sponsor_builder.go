@@ -30,7 +30,7 @@ func (m *SponsorBuilder) SetImage(image *string) *SponsorBuilder {
 }
 
 func (m *SponsorBuilder) Build() (Sponsor, error) {
-	err := m.sponsor.sanitize()
+	err := m.sponsor.Sanitize()
 	if err != nil {
 		return Sponsor{}, err
 	}

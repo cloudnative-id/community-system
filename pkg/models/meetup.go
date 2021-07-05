@@ -28,37 +28,37 @@ type Meetup struct {
 	Status          bool             `json:"status"`
 }
 
-func (m Meetup) sanitize() error {
+func (m Meetup) Sanitize() error {
 	if m.UUID == nil {
-		return fmt.Errorf("UUID cannot empty")
+		return fmt.Errorf("uuid cannot empty")
 	}
 
 	if m.Country == nil {
-		return fmt.Errorf("Country cannot empty")
+		return fmt.Errorf("country cannot empty")
 	}
 
 	if m.City == nil {
-		return fmt.Errorf("City cannot empty")
+		return fmt.Errorf("city cannot empty")
 	}
 
 	if m.Location == nil {
-		return fmt.Errorf("Location cannot empty")
+		return fmt.Errorf("location cannot empty")
 	}
 
 	if m.Duration == nil {
-		return fmt.Errorf("Duration cannot empty")
+		return fmt.Errorf("duration cannot empty")
 	}
 
 	if *m.Duration < 0 {
-		return fmt.Errorf("Duration cannot be 0 or less than 0")
+		return fmt.Errorf("duration cannot be 0 or less than 0")
 	}
 
 	if m.Time == nil {
-		return fmt.Errorf("Location cannot empty")
+		return fmt.Errorf("location cannot empty")
 	}
 
 	if len(m.Tags) == 0 {
-		return fmt.Errorf("Tags cannot empty")
+		return fmt.Errorf("tags cannot empty")
 	}
 
 	return nil
