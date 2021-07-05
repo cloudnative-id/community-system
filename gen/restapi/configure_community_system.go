@@ -55,6 +55,7 @@ func configureAPI(api *operations.CommunitySystemAPI) http.Handler {
 	api.MeetupGetMeetupHandler = handlers.NewGetMeetupHandler(store)
 	api.MeetupPutMeetupHandler = handlers.NewPutMeetupHandler(store)
 	api.MeetupGetMeetupsHandler = handlers.NewGetMeetupsHandler(store)
+	api.MeetupPatchMeetupHandler = handlers.NewPatchMeetupHandler(store)
 
 	api.SponsorPutSponsorHandler = handlers.NewPutSponsorHandler(store)
 	api.SponsorGetSponsorsHandler = handlers.NewGetSponsorsHandler(store)

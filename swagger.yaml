@@ -84,6 +84,31 @@ paths:
           description: Meetup not found
         default:
           description: Unexpected error
+    patch:
+      tags: [meetup]
+      operationId: patchMeetup
+      summary: Patch meetup data.
+      description: update meetup
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: meetup_id
+          required: true
+          type: string
+          minimum: 1
+          description: The ID of the meetup.
+        - in: body
+          name: meetup
+          required: true
+          description: The meetup to create.
+          schema:
+            $ref: '#/definitions/Meetup'
+      responses:
+        '204':
+          description: updated
+        default:
+          description: Unexpected error 
   /meetups/{meetup_id}/speakers:
     get:
       tags: [speaker]

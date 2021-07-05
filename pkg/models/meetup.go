@@ -49,8 +49,8 @@ func (m Meetup) sanitize() error {
 		return fmt.Errorf("Duration cannot empty")
 	}
 
-	if *m.Duration == 0 {
-		return fmt.Errorf("Duration cannot be 0")
+	if *m.Duration < 0 {
+		return fmt.Errorf("Duration cannot be 0 or less than 0")
 	}
 
 	if m.Time == nil {

@@ -241,6 +241,44 @@ func init() {
             "description": "Unexpected error"
           }
         }
+      },
+      "patch": {
+        "description": "update meetup",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "meetup"
+        ],
+        "summary": "Patch meetup data.",
+        "operationId": "patchMeetup",
+        "parameters": [
+          {
+            "minimum": 1,
+            "type": "string",
+            "description": "The ID of the meetup.",
+            "name": "meetup_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "The meetup to create.",
+            "name": "meetup",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Meetup"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "updated"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
       }
     },
     "/meetups/{meetup_id}/speakers": {
@@ -715,6 +753,44 @@ func init() {
           },
           "404": {
             "description": "Meetup not found"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      },
+      "patch": {
+        "description": "update meetup",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "meetup"
+        ],
+        "summary": "Patch meetup data.",
+        "operationId": "patchMeetup",
+        "parameters": [
+          {
+            "minimum": 1,
+            "type": "string",
+            "description": "The ID of the meetup.",
+            "name": "meetup_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "The meetup to create.",
+            "name": "meetup",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Meetup"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "updated"
           },
           "default": {
             "description": "Unexpected error"
