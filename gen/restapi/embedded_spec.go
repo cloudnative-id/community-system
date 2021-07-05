@@ -37,7 +37,7 @@ func init() {
     },
     "version": "1.0.0"
   },
-  "host": "0.0.0.0",
+  "host": "0.0.0.0:8080",
   "basePath": "/api/v1",
   "paths": {
     "/meetups": {
@@ -320,6 +320,54 @@ func init() {
           },
           "404": {
             "description": "Meetup not found"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/meetups/{meetup_id}/speakers/{speaker_id}": {
+      "patch": {
+        "description": "update speaker",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "speaker"
+        ],
+        "summary": "Patch speaker data.",
+        "operationId": "patchSpeaker",
+        "parameters": [
+          {
+            "minimum": 1,
+            "type": "string",
+            "description": "The ID of the meetup.",
+            "name": "meetup_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "minimum": 1,
+            "type": "string",
+            "description": "The ID of the speaker.",
+            "name": "speaker_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "The speaker to create.",
+            "name": "speaker",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Speaker"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "updated"
           },
           "default": {
             "description": "Unexpected error"
@@ -468,7 +516,7 @@ func init() {
     },
     "version": "1.0.0"
   },
-  "host": "0.0.0.0",
+  "host": "0.0.0.0:8080",
   "basePath": "/api/v1",
   "paths": {
     "/meetups": {
@@ -751,6 +799,54 @@ func init() {
           },
           "404": {
             "description": "Meetup not found"
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    },
+    "/meetups/{meetup_id}/speakers/{speaker_id}": {
+      "patch": {
+        "description": "update speaker",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "speaker"
+        ],
+        "summary": "Patch speaker data.",
+        "operationId": "patchSpeaker",
+        "parameters": [
+          {
+            "minimum": 1,
+            "type": "string",
+            "description": "The ID of the meetup.",
+            "name": "meetup_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "minimum": 1,
+            "type": "string",
+            "description": "The ID of the speaker.",
+            "name": "speaker_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "The speaker to create.",
+            "name": "speaker",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Speaker"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "updated"
           },
           "default": {
             "description": "Unexpected error"

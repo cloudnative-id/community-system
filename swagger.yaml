@@ -139,6 +139,38 @@ paths:
           description: Meetup not found
         default:
           description: Unexpected error
+  /meetups/{meetup_id}/speakers/{speaker_id}:
+    patch:
+      tags: [speaker]
+      operationId: patchSpeaker
+      summary: Patch speaker data.
+      description: update speaker
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: meetup_id
+          required: true
+          type: string
+          minimum: 1
+          description: The ID of the meetup.
+        - in: path
+          name: speaker_id
+          required: true
+          type: string
+          minimum: 1
+          description: The ID of the speaker.
+        - in: body
+          name: speaker
+          required: true
+          description: The speaker to create.
+          schema:
+            $ref: '#/definitions/Speaker'
+      responses:
+        '204':
+          description: updated
+        default:
+          description: Unexpected error 
   /meetups/sponsors:
     get:
       tags: [sponsor]

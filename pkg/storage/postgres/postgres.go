@@ -91,9 +91,24 @@ func (p PostgresClient) WriteSpeaker(speaker models.Speaker) error {
 	return nil
 }
 
+func (p PostgresClient) GetSpeaker(meetupUUID string, speakerUUID string) (models.Speaker, bool, error) {
+	var speaker models.Speaker
+	tx := p.Client.Where("meetup_uuid = ? AND uuid = ?", meetupUUID, speakerUUID).First(&speaker)
+
+	if tx.Error != nil {
+		if tx.Error == gorm.ErrRecordNotFound {
+			return models.Speaker{}, false, nil
+		}
+
+		return models.Speaker{}, false, tx.Error
+	}
+
+	return speaker, true, nil
+}
+
 func (p PostgresClient) GetSpeakers(meetupUUID string) ([]models.Speaker, bool, error) {
 	var speakers []models.Speaker
-	tx := p.Client.Where("speakers.meetup_uuid = ?", meetupUUID).Find(&speakers)
+	tx := p.Client.Where("meetup_uuid = ?", meetupUUID).Find(&speakers)
 
 	if tx.Error != nil {
 		if tx.Error == gorm.ErrRecordNotFound {

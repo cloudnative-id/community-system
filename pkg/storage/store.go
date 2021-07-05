@@ -13,6 +13,7 @@ type Storage interface {
 	DeleteMeetup(meetup models.Meetup) error
 
 	WriteSpeaker(speaker models.Speaker) error
+	GetSpeaker(meetupUUID string, speakerUUID string) (models.Speaker, bool, error)
 	GetSpeakers(meetupUUID string) ([]models.Speaker, bool, error)
 	DeleteSpeaker(speaker models.Speaker) error
 

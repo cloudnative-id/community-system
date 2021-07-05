@@ -62,6 +62,7 @@ func configureAPI(api *operations.CommunitySystemAPI) http.Handler {
 
 	api.SpeakerGetSpeakersHandler = handlers.NewGetSpeakersHandler(store)
 	api.SpeakerPutSpeakerHandler = handlers.NewPutSpeakerHandler(store)
+	api.SpeakerPatchSpeakerHandler = handlers.NewPatchSpeakerHandler(store)
 
 	api.PreServerShutdown = func() {}
 	api.ServerShutdown = func() {}
